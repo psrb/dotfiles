@@ -5,13 +5,6 @@ set encoding=UTF8
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
-"set rtp+=~/.vim/bundle/vundle
-"call vundle#rc()
-"Bundle 'scrooloose/nerdtree'
-"Bundle 'tpope/vim-surround'
-"Bundle 'Raimondi/delimitMate'
-"Bundle 'chriskempson/base16-vim'
-
 nmap <silent> <C-O> :NERDTreeToggle<CR>
 
 syntax on
