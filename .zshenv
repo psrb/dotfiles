@@ -9,5 +9,3 @@ PATH=$PATH:$GOPATH/bin
 
 export PATH
 
-hash -d research="/Users/pascal/Dropbox/Studium/Semester 6 (SS 14)/Bachelorarbeit/research"
-hash -d thesis="/Users/pascal/Dropbox/Studium/Semester 6 (SS 14)/Bachelorarbeit/thesis"

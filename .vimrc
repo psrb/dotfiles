@@ -1,50 +1,80 @@
+" vim: sw=2 ts=2 sts=2 et foldmarker={,} foldmethod=marker
 set nocompatible
 set encoding=UTF8
 
-" Initialize Pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+" Vundle setup {
+  filetype off
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+  Plugin 'gmarik/Vundle.vim'
+  Plugin 'chriskempson/base16-vim'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'Raimondi/delimitMate'
+  Plugin 'tpope/vim-surround'
+  call vundle#end()
+  filetype plugin indent on
+" }
 
-nmap <silent> <C-O> :NERDTreeToggle<CR>
+" color scheme {
+  syntax on
+  set background=dark
+  colorscheme base16-ocean
+" }
 
-syntax on
-filetype plugin indent on
+" ui {
+  set number " line number
+  set ruler " position  of cursor
+  set showcmd " show incomplete command in status bar
+  set colorcolumn=80
+  set title " Title of window
+  set wildmenu
+  set wildmode=list:longest,full
+  set list
+  set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+  set cursorline
+  " statusline {
+      set laststatus=2
+  " }
+  " Search {
+    set hlsearch
+    set incsearch
+    set ignorecase
+    set smartcase
+  " }
+  if has("gui_running")
+    if has('macunix')
+      set guifont=Menlo:h11
+    endif
+    set guioptions-=T " disable tab bar
+    set guioptions-=r " disable right scroll bar
+    set guioptions-=L " disable left scroll bar
+  endif
+" }
 
-set background=dark
-colorscheme base16-ocean
+" file handling {
+  set autoread
+  set autowriteall " write when switching buffers, exiting ...
+  au FocusLost * silent! wa " Save all buffers when focus is lost
+  set backupdir=~/.vimbackup
+  set directory=~/.vimbackup
+" }
 
-set shiftwidth=4
-set tabstop=4
+" tabs/spaces {
+  set shiftwidth=4
+  set tabstop=4
+  set softtabstop=4  " let backspace no about space indentation
+  set expandtab
+  set backspace=indent,eol,start
+" }
 
-set number " line number
-set ruler " position  of cursor
-set showcmd " show incomplete command in status bar
-set laststatus=2
+" Key mappings {
+  imap jj <Esc>
+" }
 
-set autoread
-set autowriteall
-au FocusLost * silent! wa " Save all buffers when focus is lost
-
-" search stuff
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase " if search pattern contains upper case chars ignorecase will ignored
-
-" backup stuff
-set backupdir=~/.vimbackup
-set directory=~/.vimbackup
-
-set title " Title of window
-set wildmenu
-set wildmode=list:longest,full
-
-" backspace over everything
-set backspace=indent,eol,start
-
-" reindent whole file (it's not ideal)
-nmap <tab> mzgg=G`zzz
-
-" Python
-autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
-
+" Plugins {
+  " NerdTree {
+    let NERDTreeShowHidden=1
+    let NERDTreeIgnore=['^\.git$', '^\.DS_Store$']
+    nmap <silent> <C-O> :NERDTreeToggle<CR>
+  " }
+" }
