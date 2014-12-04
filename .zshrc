@@ -50,3 +50,4 @@ plugins=(git brew sublime colored-man go)
 source $ZSH/oh-my-zsh.sh
 
 setopt combiningchars
+setopt no_share_history
