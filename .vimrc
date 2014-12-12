@@ -26,6 +26,9 @@ endif
     Plugin 'derekwyatt/vim-fswitch'
     Plugin 'rhysd/vim-clang-format'
     Plugin 'greyblake/vim-preview'
+    " dependency for vim-session
+    Plugin 'xolox/vim-misc'
+    Plugin 'xolox/vim-session'
   endif
   call vundle#end()
   filetype plugin indent on
@@ -134,6 +137,11 @@ endif
       let g:clang_format#auto_format_on_insert_leave=0
       let g:clang_format#detect_style_file=1
       let g:clang_format#code_style='WebKit'
+    " }
+
+    " Session {
+      let g:session_autosave="yes"
+      let g:session_persist_colors=0
     " }
   endif
 " }
