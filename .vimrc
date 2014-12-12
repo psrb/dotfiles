@@ -11,6 +11,12 @@ set encoding=UTF8
   Plugin 'scrooloose/nerdtree'
   Plugin 'Raimondi/delimitMate'
   Plugin 'tpope/vim-surround'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'Valloric/YouCompleteMe'
+  Plugin 'derekwyatt/vim-fswitch'
+  Plugin 'rhysd/vim-clang-format'
+  Plugin 'greyblake/vim-preview'
+  Plugin 'bling/vim-airline'
   call vundle#end()
   filetype plugin indent on
 " }
@@ -21,29 +27,38 @@ set encoding=UTF8
   colorscheme base16-ocean
 " }
 
+" general {
+  set noeb vb t_vb = " no error/visualbells
+" }
+
 " ui {
   set number " line number
   set ruler " position  of cursor
   set showcmd " show incomplete command in status bar
-  set colorcolumn=80
+  set colorcolumn=+1 " display column 1 column after textwidth
   set title " Title of window
   set wildmenu
   set wildmode=list:longest,full
   set list
   set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
   set cursorline
+  set splitright " new vertical splits always to the right
+  set splitbelow " new horizontal splits always below
+
   " statusline {
       set laststatus=2
   " }
+
   " Search {
     set hlsearch
     set incsearch
     set ignorecase
     set smartcase
   " }
+
   if has("gui_running")
     if has('macunix')
-      set guifont=Menlo:h11
+      set guifont=Menlo:h12
     endif
     set guioptions-=T " disable tab bar
     set guioptions-=r " disable right scroll bar
@@ -55,8 +70,8 @@ set encoding=UTF8
   set autoread
   set autowriteall " write when switching buffers, exiting ...
   au FocusLost * silent! wa " Save all buffers when focus is lost
-  set backupdir=~/.vimbackup
-  set directory=~/.vimbackup
+  set nobackup
+  set noswapfile
 " }
 
 " tabs/spaces {
@@ -68,13 +83,46 @@ set encoding=UTF8
 " }
 
 " Key mappings {
-  imap jj <Esc>
+  inoremap jj <Esc>
+
+  " NerdTree {
+    noremap <silent> <C-O> :NERDTreeToggle<CR>
+  " }
+
+  " Fswitch {
+    noremap <C-h> :FSHere<CR>
+  " }
+
+  " YouCompleteMe {
+    noremap <silent> <C-]> :YcmCompleter GoToDeclaration<CR>
+    noremap <silent> <C-}> :YcmCompleter GoToDefinition<CR>
+  " }
 " }
 
 " Plugins {
   " NerdTree {
     let NERDTreeShowHidden=1
     let NERDTreeIgnore=['^\.git$', '^\.DS_Store$']
-    nmap <silent> <C-O> :NERDTreeToggle<CR>
+  " }
+
+  " YouCompleteMe {
+    let g:ycm_global_ycm_extra_conf="~/.dotfiles/.ycm_extra_conf.py"
+    "let g:ycm_autoclose_preview_window_after_insertion = 1
+  " }
+
+  " ClangFormat {
+    let g:clang_format#auto_format=0
+    let g:clang_format#auto_format_on_insert_leave=0
+    let g:clang_format#detect_style_file=1
+    let g:clang_format#code_style='WebKit'
+  " }
+
+  " Airline {
+    let g:airline_left_sep=' '
+    let g:airline_right_sep=' '
+    let g:airline#extensions#tabline#enabled=1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
   " }
 " }
+
