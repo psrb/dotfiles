@@ -18,7 +18,6 @@ else
     printf "alread installed!\n"
 fi
 
-
 printf "Creating symlinks\n"
 DIR=$(cd $(dirname $0); pwd)
 [ ! -h ~/.tmux.conf ] && ln -s $DIR/.tmux.conf ~/.tmux.conf
@@ -27,9 +26,6 @@ DIR=$(cd $(dirname $0); pwd)
 [ ! -h ~/.oh-my-zsh ] && ln -s $DIR/.oh-my-zsh ~/.oh-my-zsh
 [ ! -h ~/.zshenv ] && ln -s $DIR/.zshenv ~/.zshenv
 [ ! -h ~/.zshrc ] && ln -s $DIR/.zshrc ~/.zshrc
-
-printf "Creating directories\n"
-mkdir -p ~/.vimbackup
 
 printf "Finished\n"
 
