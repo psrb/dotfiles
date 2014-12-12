@@ -28,6 +28,7 @@ endif
     Plugin 'derekwyatt/vim-fswitch'
     Plugin 'rhysd/vim-clang-format'
     Plugin 'greyblake/vim-preview'
+    Plugin 'fatih/vim-go'
   endif
   call vundle#end()
   filetype plugin indent on
