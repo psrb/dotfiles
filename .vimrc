@@ -2,6 +2,12 @@
 set nocompatible
 set encoding=UTF8
 
+" Setting the env variable SERVER disables some plugins that are not
+" needed when using vim on a server
+if $SERVER == ""
+  let g:isNotServerConfig=1
+endif
+
 " Vundle setup {
   filetype off
   set rtp+=~/.vim/bundle/Vundle.vim
@@ -12,11 +18,15 @@ set encoding=UTF8
   Plugin 'Raimondi/delimitMate'
   Plugin 'tpope/vim-surround'
   Plugin 'tpope/vim-fugitive'
-  Plugin 'Valloric/YouCompleteMe'
-  Plugin 'derekwyatt/vim-fswitch'
-  Plugin 'rhysd/vim-clang-format'
-  Plugin 'greyblake/vim-preview'
   Plugin 'bling/vim-airline'
+
+  " plugins that are not needed on a server
+  if exists("g:isNotServerConfig")
+    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'derekwyatt/vim-fswitch'
+    Plugin 'rhysd/vim-clang-format'
+    Plugin 'greyblake/vim-preview'
+  endif
   call vundle#end()
   filetype plugin indent on
 " }
@@ -105,18 +115,6 @@ set encoding=UTF8
     let NERDTreeIgnore=['^\.git$', '^\.DS_Store$']
   " }
 
-  " YouCompleteMe {
-    let g:ycm_global_ycm_extra_conf="~/.dotfiles/.ycm_extra_conf.py"
-    "let g:ycm_autoclose_preview_window_after_insertion = 1
-  " }
-
-  " ClangFormat {
-    let g:clang_format#auto_format=0
-    let g:clang_format#auto_format_on_insert_leave=0
-    let g:clang_format#detect_style_file=1
-    let g:clang_format#code_style='WebKit'
-  " }
-
   " Airline {
     let g:airline_left_sep=' '
     let g:airline_right_sep=' '
@@ -124,5 +122,19 @@ set encoding=UTF8
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
   " }
+
+  if exists("g:isNotServerConfig")
+    " YouCompleteMe {
+      let g:ycm_global_ycm_extra_conf="~/.dotfiles/.ycm_extra_conf.py"
+      "let g:ycm_autoclose_preview_window_after_insertion = 1
+    " }
+
+    " ClangFormat {
+      let g:clang_format#auto_format=0
+      let g:clang_format#auto_format_on_insert_leave=0
+      let g:clang_format#detect_style_file=1
+      let g:clang_format#code_style='WebKit'
+    " }
+  endif
 " }
 
