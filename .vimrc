@@ -1,34 +1,37 @@
 " vim: sw=2 ts=2 sts=2 et foldmarker={{{,}}} foldmethod=marker
 set nocompatible
 
-" Setting the env variable SERVER disables some plugins that are not
-" needed when using vim on a server
-if $SERVER == ""
-  let g:isNotServerConfig=1
+" The environment variable VIM_LIGHT_INSTALL controls if all plugins should be
+" installed
+let g:isFullInstall = 1
+if $VIM_LIGHT_INSTALL != ""
+  let g:isFullInstall = 0
 endif
 
 " Vundle setup {{{
   filetype off
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
-  Plugin 'gmarik/Vundle.vim'
   Plugin 'chriskempson/base16-vim'
+  Plugin 'gmarik/Vundle.vim'
   Plugin 'scrooloose/nerdtree'
   Plugin 'Raimondi/delimitMate'
   Plugin 'tpope/vim-surround'
   Plugin 'tpope/vim-fugitive'
+  Plugin 'tpope/vim-markdown'
   Plugin 'bling/vim-airline'
-  " dependency for vim-session
-  Plugin 'xolox/vim-misc'
+  Plugin 'xolox/vim-misc' " dependency for vim-session
   Plugin 'xolox/vim-session'
+  Plugin 'octol/vim-cpp-enhanced-highlight' " also better highlights for c
+  Plugin 'vim-scripts/bufkill.vim' " sane buffer closing
 
-  " plugins that are not needed on a server
-  if exists("g:isNotServerConfig")
+  " plugins that are on main machines
+  if g:isFullInstall
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'derekwyatt/vim-fswitch'
     Plugin 'rhysd/vim-clang-format'
-    Plugin 'greyblake/vim-preview'
     Plugin 'fatih/vim-go'
+    Plugin 'majutsushi/tagbar'
   endif
   call vundle#end()
   filetype plugin indent on
@@ -38,16 +41,25 @@ endif
   syntax on
   set background=dark
   colorscheme base16-ocean
+  if has("gui_running")
+    if has('macunix')
+      set guifont=Menlo:h12
+    endif
+  endif
 " }}}
 
 " general {{{
   set encoding=UTF8
   " no error/visualbells
   set noeb vb t_vb =
+
+  " persistent undo
+  set undofile
+  set undodir=$HOME/.vimundo
 " }}}
 
 " ui {{{
-  set number " line number
+  set number
   set ruler " position  of cursor
   set showcmd " show incomplete command in status bar
   set colorcolumn=+1 " display column 1 column after textwidth
@@ -72,11 +84,9 @@ endif
   " }}}
 
   if has("gui_running")
-    if has('macunix')
-      set guifont=Menlo:h12
-    endif
     set guioptions-=T " disable tab bar
-    set guioptions-=r " disable right scroll bar
+    set guioptions-=m " disable menu
+    set guioptions-=R " disable right scroll bar
     set guioptions-=L " disable left scroll bar
   endif
 " }}}
@@ -84,25 +94,70 @@ endif
 " file handling {{{
   set autoread
   set autowriteall " write when switching buffers, exiting ...
-  au FocusLost * silent! wa " Save all buffers when focus is lost
   set nobackup
   set noswapfile
 " }}}
 
-" tabs/spaces {{{
+" Indentation {{{
   set shiftwidth=4
   set tabstop=4
-  set softtabstop=4  " let backspace no about space indentation
+  set softtabstop=4  " let backspace know about space indentation
   set expandtab
   set backspace=indent,eol,start
+  set autoindent
+  set copyindent
+  set cindent
+" }}}
+
+" Autocommands {{{
+
+  " Save all buffers when focus is lost
+  au FocusLost * silent! wa
+
+  " Focus current window {{{
+    " TODO: Bug with fugitives gdiff window (WinEnter not called)
+    function! s:windowEnter()
+      if &buftype == '' && &diff == 0 && &previewwindow == 0
+        setlocal number
+        setlocal cursorline
+        if exists("w:curColorColumn")
+          let &colorcolumn=w:curColorColumn
+        endif
+      endif
+    endfunction
+
+    function! s:windowLeave()
+      if &buftype == '' && &diff == 0 && &previewwindow == 0
+        setlocal nonumber
+        setlocal nocursorline
+        let w:curColorColumn = &colorcolumn
+        setlocal colorcolumn=0
+      endif
+    endfunction
+
+    augroup FocusWindow
+      au!
+      "au WinEnter * call s:windowEnter()
+      "au WinLeave * call s:windowLeave()
+    augroup END
+  " }}}
+
 " }}}
 
 " Key mappings {{{
-  inoremap jj <Esc>
+
+  " better movement between windows
+  nmap <C-h> <C-w>h
+  nmap <C-j> <C-w>j
+  nmap <C-k> <C-w>k
+  nmap <C-l> <C-w>l
 
   " make j/k useful for long lines
   nnoremap j gj
   nnoremap k gk
+
+  " making saving easer
+  nmap <Leader>w :w<cr>
 
   " 'sudo save'
   cnoremap w!! w !sudo tee % >/dev/null
@@ -111,51 +166,103 @@ endif
   nnoremap <silent> zk O<Esc>j
   nnoremap <silent> zj o<Esc>k
 
-  " NerdTree {{{
-    noremap <silent> <C-O> :NERDTreeToggle<CR>
-  " }}}
+  " Add two newlines and position cursor on the first one in insert mode
+  nmap <S-cr> o<cr><esc>ki
 
-  " Fswitch {{{
-    noremap <C-h> :FSHere<CR>
-  " }}}
+  " Keep selection when (re-)indenting
+  vnoremap < <gv
+  vnoremap > >gv
+  vnoremap = =gv
 
-  " YouCompleteMe {{{
-    noremap <silent> <C-]> :YcmCompleter GoToDeclaration<CR>
-    noremap <silent> <C-}> :YcmCompleter GoToDefinition<CR>
-  " }}}
+  " Copy to system clipboard
+  noremap y "*y
+  noremap yy "*Y
+  noremap Y "*Y
+
+  " centering searches (auto opens folds)
+  nnoremap * *zzzv
+  nnoremap # #zzzv
+  nnoremap n nzzzv
+  nnoremap N Nzzzv
+
 " }}}
 
 " Plugins {{{
+
+  " DelimitMate {{{
+    " put closing bracket on seperate line after enter
+    let g:delimitMate_expand_cr = 1
+  " }}}
+
   " NerdTree {{{
-    let NERDTreeShowHidden=1
-    let NERDTreeIgnore=['^\.git$', '^\.DS_Store$']
+    " Show hidden files
+    let NERDTreeShowHidden = 1
+    let NERDTreeIgnore = ['^\.git$', '^\.DS_Store$', '\.pyc$']
+
+    noremap <silent> <Leader>O :NERDTreeToggle<CR>
+    noremap <silent> <Leader>o :NERDTreeFocus<CR>
   " }}}
 
   " Airline {{{
-    let g:airline_left_sep=' '
-    let g:airline_right_sep=' '
-    let g:airline#extensions#tabline#enabled=1
+    " show current branch in status line (req. Fugitive)
+    let g:airline#extensions#branch#enabled = 1
+
+    " enhanced tabline
+    let g:airline#extensions#tabline#enabled = 1
+    " quickly select open buffers (max 9)
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    nmap <leader>1 <Plug>AirlineSelectTab1
+    nmap <leader>2 <Plug>AirlineSelectTab2
+    nmap <leader>3 <Plug>AirlineSelectTab3
+    nmap <leader>4 <Plug>AirlineSelectTab4
+    nmap <leader>5 <Plug>AirlineSelectTab5
+    nmap <leader>6 <Plug>AirlineSelectTab6
+    nmap <leader>7 <Plug>AirlineSelectTab7
+    nmap <leader>8 <Plug>AirlineSelectTab8
+    nmap <leader>9 <Plug>AirlineSelectTab9
+
+    " don't have powerline fonts
+    let g:airline_left_sep = ' '
+    let g:airline_right_sep = ' '
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
   " }}}
 
-  if exists("g:isNotServerConfig")
+  " Fswitch {{{
+    nmap <Leader>h :FSHere<CR>
+  " }}}
+
+  " Session {{{
+    let g:session_autosave = "yes"
+    let g:session_autoload = "no"
+    let g:session_persist_colors = 0
+    let g:session_command_aliases = 1
+  " }}}
+
+  " Bufkill {{{
+    nmap <Leader>bd :BD<CR>
+  " }}}
+
+  if g:isFullInstall
     " YouCompleteMe {{{
-      let g:ycm_global_ycm_extra_conf="~/.dotfiles/.ycm_extra_conf.py"
-      "let g:ycm_autoclose_preview_window_after_insertion = 1
+      let g:ycm_global_ycm_extra_conf = "~/.dotfiles/.ycm_extra_conf.py"
+      let g:ycm_autoclose_preview_window_after_insertion = 1
+
+      nmap <silent> <Leader>yg :YcmCompleter GoTo<CR>
+      nmap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
+      nmap <silent> <Leader>yf :YcmCompleter GoToDefinition<CR>
     " }}}
 
     " ClangFormat {{{
-      let g:clang_format#auto_format=0
-      let g:clang_format#auto_format_on_insert_leave=0
-      let g:clang_format#detect_style_file=1
-      let g:clang_format#code_style='WebKit'
+      let g:clang_format#auto_format = 0
+      let g:clang_format#auto_format_on_insert_leave = 0
+      let g:clang_format#detect_style_file = 1
     " }}}
 
-    " Session {{{
-      let g:session_autosave="yes"
-      let g:session_persist_colors=0
+    " Tagbar {{{
+      map <Leader>t :TagbarToggle<cr>
     " }}}
   endif
+
 " }}}
 
