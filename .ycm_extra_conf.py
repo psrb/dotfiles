@@ -16,25 +16,45 @@
 
 import ycm_core
 import os
+from subprocess import Popen, PIPE
+
+def getClangIncludePaths(lang):
+    """
+    Gets the default include paths from clang for the specified language.
+    """
+    p = Popen(["clang", "-v", "-E", "-x", lang, "-"], stdin=PIPE, stdout=PIPE,
+            stderr=PIPE)
+    output = p.communicate("\n")[1]
+
+    flags = []
+    foundFlags = False
+    for line in output.splitlines():
+        if line == "#include <...> search starts here:":
+            foundFlags = True
+            continue
+        if line == "End of search list.":
+            break
+
+        if foundFlags and "(framework directory)" not in line:
+            flags.append('-isystem')
+            flags.append(line.strip())
+    return flags
+
 
 DEFAULT_FLAGS = [
 '-Wall',
 '-Wextra',
 '-Weverything',
+'-Wno-newline-eof',
 '-pedantic',
 '-DNDEBUG',
 '-isystem',
 '/usr/local/include',
-'-isystem',
-'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1',
-'-isystem',
-'/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include',
-'-isystem',
-'/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include/',
 ]
-# TODO parse includes files from 'echo | clang -v -E -x [c++|c] -'
 
-SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
+C_INCLUDES = getClangIncludePaths('c')
+CPP_INCLUDES = getClangIncludePaths('c++')
+
 DATABASE = None # the ycm_core database
 
 def isHeaderFile(filename):
@@ -85,8 +105,7 @@ def getFlagsForHeaderFile(header_file, database):
                 path = os.path.join(directory, f)
                 comp_info = database.GetCompilationInfoForFile(path)
                 return list(comp_info.compiler_flags_)
-    return None
-
+    raise Exception("Found no flags for this file")
 
 def FlagsForFile(filename, **kwargs):
     flags = []
@@ -104,14 +123,21 @@ def FlagsForFile(filename, **kwargs):
         else:
             comp_info = DATABASE.GetCompilationInfoForFile(filename)
             flags += list(comp_info.compiler_flags_)
+
+        flags += DEFAULT_FLAGS
     else:
         flags += DEFAULT_FLAGS
         if isCFile(filename):
-            flags += ['-std=c99', '-x', 'c']
+            flags += ['-std=c99']
         elif isCPPFile(filename):
-            flags += ['-std=c++11', '-x', 'c++']
+            flags += ['-std=c++11']
 
-    extra_flags = ['-Wno-newline-eof', '-Wno-padded', '-Wno-cast-align']
-    final_flags = flags + extra_flags
-    return { 'flags': final_flags, 'do_cache': True }
+    if isCFile(filename):
+        flags += ['-x', 'c']
+        flags += C_INCLUDES
+    elif isCPPFile(filename):
+        flags += ['-x', 'c++']
+        flags += CPP_INCLUDES
+
+    return { 'flags': flags, 'do_cache': True }
 
