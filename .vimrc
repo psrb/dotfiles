@@ -86,7 +86,9 @@ endif
   if has("gui_running")
     set guioptions-=T " disable tab bar
     set guioptions-=m " disable menu
+    set guioptions-=r " disable right scroll bar
     set guioptions-=R " disable right scroll bar
+    set guioptions-=l " disable left scroll bar
     set guioptions-=L " disable left scroll bar
   endif
 " }}}
@@ -115,7 +117,6 @@ endif
   au FocusLost * silent! wa
 
   " Focus current window {{{
-    " TODO: Bug with fugitives gdiff window (WinEnter not called)
     function! s:windowEnter()
       if &buftype == '' && &diff == 0 && &previewwindow == 0
         setlocal number
@@ -185,6 +186,9 @@ endif
   nnoremap n nzzzv
   nnoremap N Nzzzv
 
+  " reload vimrc
+  nmap <F2> :source $MYVIMRC<cr>:echom "vimrc reloaded"<cr>
+
 " }}}
 
 " Plugins {{{
@@ -240,7 +244,7 @@ endif
   " }}}
 
   " Bufkill {{{
-    nmap <Leader>bd :BD<CR>
+    nmap <silent> <Leader>bd :BD<CR>
   " }}}
 
   if g:isFullInstall
@@ -260,7 +264,7 @@ endif
     " }}}
 
     " Tagbar {{{
-      map <Leader>t :TagbarToggle<cr>
+      map <silent> <Leader>t :TagbarOpenAutoClose<cr>
     " }}}
   endif
 
