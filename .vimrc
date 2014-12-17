@@ -117,6 +117,7 @@ endif
   au FocusLost * silent! wa
 
   " Focus current window {{{
+    " TODO: Bug with fugitives gdiff window (WinEnter not called)
     function! s:windowEnter()
       if &buftype == '' && &diff == 0 && &previewwindow == 0
         setlocal number
@@ -176,9 +177,11 @@ endif
   vnoremap = =gv
 
   " Copy to system clipboard
-  noremap y "*y
-  noremap yy "*Y
-  noremap Y "*Y
+  if has("clipboard")
+    noremap y "*y
+    noremap yy "*Y
+    noremap Y "*Y
+  endif
 
   " centering searches (auto opens folds)
   nnoremap * *zzzv
