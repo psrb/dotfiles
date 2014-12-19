@@ -32,6 +32,7 @@ endif
     Plugin 'rhysd/vim-clang-format'
     Plugin 'fatih/vim-go'
     Plugin 'majutsushi/tagbar'
+    Plugin 'xolox/vim-notes' " depends on vim-misc
   endif
   call vundle#end()
   filetype plugin indent on
@@ -268,6 +269,11 @@ endif
 
     " Tagbar {{{
       map <silent> <Leader>t :TagbarOpenAutoClose<cr>
+    " }}}
+
+    " vim-notes {{{
+      let g:notes_directories = ['~/Dropbox/Notes']
+      let g:notes_suffix = '.txt'
     " }}}
   endif
 
