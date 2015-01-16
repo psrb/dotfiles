@@ -44,7 +44,7 @@ endif
   colorscheme base16-ocean
   if has("gui_running")
     if has('macunix')
-      set guifont=Menlo:h12
+      set guifont=Menlo:h13
     endif
   endif
 " }}}
@@ -159,6 +159,10 @@ endif
   nnoremap j gj
   nnoremap k gk
 
+  " center cursor on forward/backwards jumps
+  nnoremap <C-b> <C-b>zz
+  nnoremap <C-f> <C-f>zz
+
   " making saving easer
   nmap <Leader>w :w<cr>
 
@@ -176,13 +180,6 @@ endif
   vnoremap < <gv
   vnoremap > >gv
   vnoremap = =gv
-
-  " Copy to system clipboard
-  if has("clipboard")
-    noremap y "*y
-    noremap yy "*Y
-    noremap Y "*Y
-  endif
 
   " centering searches (auto opens folds)
   nnoremap * *zzzv
