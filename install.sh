@@ -35,7 +35,7 @@ printf "Installing Vim plugins\n"
 
 read -p "Light install (less plugins)? [yN]:" yn
 if [ "$yn" = "y" ] || [ "$yn" = "Y" ]; then
-    echo "Remeber to export the environment variable 'VIM_LIGHT_INSTALL'!"
+    echo "Remember to export the environment variable 'VIM_LIGHT_INSTALL'!"
     export VIM_LIGHT_INSTALL=1
 fi
 vim +PluginInstall
