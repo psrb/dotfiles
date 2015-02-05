@@ -24,14 +24,18 @@ endif
   Plugin 'xolox/vim-session'
   Plugin 'octol/vim-cpp-enhanced-highlight' " also better highlights for c
   Plugin 'vim-scripts/bufkill.vim' " sane buffer closing
+  Plugin 'kien/ctrlp.vim'
+  Plugin 'tomtom/tcomment_vim'
 
   " plugins that are on main machines
   if g:isFullInstall
-    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'Valloric/YouCompleteMe' " deps: compiled component
     Plugin 'derekwyatt/vim-fswitch'
-    Plugin 'rhysd/vim-clang-format'
+    Plugin 'rhysd/vim-clang-format' " external deps: clang format
     Plugin 'fatih/vim-go'
-    Plugin 'majutsushi/tagbar'
+    Plugin 'majutsushi/tagbar' " external deps: ctags
+    Plugin 'marijnh/tern_for_vim' " external deps: nodejs + extra npm install
+    Plugin 'tikhomirov/vim-glsl'
   endif
   call vundle#end()
   filetype plugin indent on
@@ -44,6 +48,7 @@ endif
   if has("gui_running")
     if has('macunix')
       set guifont=Menlo:h13
+      set linespace=1 " inline with terminal/sublime
     endif
   endif
 " }}}
@@ -115,34 +120,6 @@ endif
 
   " Save all buffers when focus is lost
   au FocusLost * silent! wa
-
-  " Focus current window {{{
-    " TODO: Bug with fugitives gdiff window (WinEnter not called)
-    function! s:windowEnter()
-      if &buftype == '' && &diff == 0 && &previewwindow == 0
-        setlocal number
-        setlocal cursorline
-        if exists("w:curColorColumn")
-          let &colorcolumn=w:curColorColumn
-        endif
-      endif
-    endfunction
-
-    function! s:windowLeave()
-      if &buftype == '' && &diff == 0 && &previewwindow == 0
-        setlocal nonumber
-        setlocal nocursorline
-        let w:curColorColumn = &colorcolumn
-        setlocal colorcolumn=0
-      endif
-    endfunction
-
-    augroup FocusWindow
-      au!
-      "au WinEnter * call s:windowEnter()
-      "au WinLeave * call s:windowLeave()
-    augroup END
-  " }}}
 
 " }}}
 
@@ -234,6 +211,7 @@ endif
 
   " Fswitch {{{
     nmap <Leader>h :FSHere<CR>
+    let g:fsnonewfiles = ''
   " }}}
 
   " Session {{{
