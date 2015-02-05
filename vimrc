@@ -35,12 +35,16 @@ endif
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tomtom/tcomment_vim'
 
-  Plug 'jelera/vim-javascript-syntax'
+  " improved syntax highlighting for javascript
+  " further tweaks below
+  Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
 
   " plugins that should only be on main machines (e.g. not on servers)
   if g:isFullInstall
     " deps: compiled component
     Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
+
+    Plug 'scrooloose/syntastic'
 
     " switch between header/sources files
     Plug 'derekwyatt/vim-fswitch', {'for': ['c', 'cpp']}
@@ -54,7 +58,8 @@ endif
 
     " autocomplete for javascript
     " external deps: nodejs + extra npm install
-    Plug 'marijnh/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
+    Plug 'marijnh/tern_for_vim', {'do': 'npm install',
+          \ 'for': ['javascript', 'html']}
 
     " glsl shader language syntax definitions
     Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
@@ -240,6 +245,16 @@ endif
     nmap <silent> <Leader>bd :BD<CR>
   " }}}
 
+  " Javascript Syntax {{{
+    " should probably go somewhere else
+    hi link jsFuncCall Function
+    hi link jsObjectKey Special
+    hi link jsFunctionKey Function
+    hi link jsFuncAssignIdent Function
+    hi link jsThis Identifier
+    hi link jsStorageClass Identifier
+  " }}}
+
   if g:isFullInstall
     " YouCompleteMe {{{
       let g:ycm_global_ycm_extra_conf = "~/.dotfiles/ycm_extra_conf.py"
@@ -258,6 +273,10 @@ endif
 
     " Tagbar {{{
       map <silent> <Leader>t :TagbarOpenAutoClose<cr>
+    " }}}
+
+    " Syntastic {{{
+      let g:syntastic_always_populate_loc_list = 1
     " }}}
   endif
 
