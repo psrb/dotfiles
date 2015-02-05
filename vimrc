@@ -8,52 +8,61 @@ if $VIM_LIGHT_INSTALL != ""
   let g:isFullInstall = 0
 endif
 
-" Vundle setup {{{
-  filetype off
-  set rtp+=~/.vim/bundle/Vundle.vim
-  call vundle#begin()
-  Plugin 'chriskempson/base16-vim'
-  Plugin 'gmarik/Vundle.vim'
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'Raimondi/delimitMate'
-  Plugin 'tpope/vim-surround'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-markdown'
-  Plugin 'bling/vim-airline'
-  Plugin 'xolox/vim-misc' " dependency for vim-session
-  Plugin 'xolox/vim-session'
-  Plugin 'octol/vim-cpp-enhanced-highlight' " also better highlights for c
-  Plugin 'vim-scripts/bufkill.vim' " sane buffer closing
-  Plugin 'kien/ctrlp.vim'
-  Plugin 'tomtom/tcomment_vim'
+" Plug setup {{{
+  call plug#begin('~/.vim/plugged')
+  Plug 'chriskempson/base16-vim'
+  Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle']}
 
-  " plugins that are on main machines
+  Plug 'Raimondi/delimitMate'
+  Plug 'tpope/vim-surround'
+
+  " git plugin
+  Plug 'tpope/vim-fugitive'
+
+  Plug 'tpope/vim-markdown', {'for': 'markdown'}
+  Plug 'bling/vim-airline'
+
+  " dependency for vim-session
+  Plug 'xolox/vim-misc'
+  " Nice session management
+  Plug 'xolox/vim-session'
+
+  " also better highlights for c
+  Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+
+  " sane buffer closing
+  Plug 'vim-scripts/bufkill.vim'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'tomtom/tcomment_vim'
+
+  Plug 'jelera/vim-javascript-syntax'
+
+  " plugins that should only be on main machines (e.g. not on servers)
   if g:isFullInstall
-    Plugin 'Valloric/YouCompleteMe' " deps: compiled component
-    Plugin 'derekwyatt/vim-fswitch'
-    Plugin 'rhysd/vim-clang-format' " external deps: clang format
-    Plugin 'fatih/vim-go'
-    Plugin 'majutsushi/tagbar' " external deps: ctags
-    Plugin 'marijnh/tern_for_vim' " external deps: nodejs + extra npm install
-    Plugin 'tikhomirov/vim-glsl'
+    " deps: compiled component
+    Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
+
+    " switch between header/sources files
+    Plug 'derekwyatt/vim-fswitch', {'for': ['c', 'cpp']}
+
+    " external deps: clang format
+    Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
+    Plug 'fatih/vim-go', {'for': 'go'}
+
+    " external deps: ctags
+    Plug 'majutsushi/tagbar'
+
+    " autocomplete for javascript
+    " external deps: nodejs + extra npm install
+    Plug 'marijnh/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
+
+    " glsl shader language syntax definitions
+    Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
   endif
-  call vundle#end()
-  filetype plugin indent on
+  call plug#end()
 " }}}
 
-" color scheme {{{
-  syntax on
-  set background=dark
-  colorscheme base16-ocean
-  if has("gui_running")
-    if has('macunix')
-      set guifont=Menlo:h13
-      set linespace=1 " inline with terminal/sublime
-    endif
-  endif
-" }}}
-
-" general {{{
+" General {{{
   set encoding=UTF8
   " no error/visualbells
   set noeb vb t_vb =
@@ -63,7 +72,11 @@ endif
   set undodir=$HOME/.vimundo
 " }}}
 
-" ui {{{
+" UI {{{
+  syntax on
+  set background=dark
+  colorscheme base16-ocean
+
   set number
   set ruler " position  of cursor
   set showcmd " show incomplete command in status bar
@@ -76,10 +89,7 @@ endif
   set cursorline
   set splitright " new vertical splits always to the right
   set splitbelow " new horizontal splits always below
-
-  " statusline {{{
-      set laststatus=2
-  " }}}
+  set laststatus=2
 
   " Search {{{
     set hlsearch
@@ -89,6 +99,11 @@ endif
   " }}}
 
   if has("gui_running")
+    if has('macunix')
+      set guifont=Menlo:h13
+      set linespace=1 " inline with terminal/sublime
+    endif
+
     set guioptions-=T " disable tab bar
     set guioptions-=m " disable menu
     set guioptions-=r " disable right scroll bar
@@ -98,7 +113,7 @@ endif
   endif
 " }}}
 
-" file handling {{{
+" File Handling {{{
   set autoread
   set autowriteall " write when switching buffers, exiting ...
   set nobackup

@@ -9,10 +9,11 @@ else
     printf "already installed!\n"
 fi
 
-printf "Cloning Vundle    ...\t"
-if [ ! -d vim/bundle/Vundle.vim ]; then
+printf "Cloning plug.vim    ...\t"
+if [ ! -f vim/autoload/plug.vim ]; then
     printf "\n"
-    git clone https://github.com/gmarik/Vundle.vim.git vim/bundle/Vundle.vim
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     printf "\n"
 else
     printf "already installed!\n"
@@ -38,7 +39,7 @@ if [ "$yn" = "y" ] || [ "$yn" = "Y" ]; then
     echo "Remember to export the environment variable 'VIM_LIGHT_INSTALL'!"
     export VIM_LIGHT_INSTALL=1
 fi
-vim +PluginInstall
+vim +PlugInstall
 
 printf "Finished\n"
 
