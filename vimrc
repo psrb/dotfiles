@@ -11,16 +11,21 @@ endif
 " Plug setup {{{
   call plug#begin('~/.vim/plugged')
   Plug 'chriskempson/base16-vim'
-  Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle']}
-
   Plug 'Raimondi/delimitMate'
   Plug 'tpope/vim-surround'
+  Plug 'bling/vim-airline'
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'tomtom/tcomment_vim'
+  Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
+              \'NERDTreeToggle']}
 
   " git plugin
   Plug 'tpope/vim-fugitive'
 
   Plug 'tpope/vim-markdown', {'for': 'markdown'}
-  Plug 'bling/vim-airline'
+  " depends on 'tpope/vim-markdown'
+  Plug 'nelstrom/vim-markdown-folding', {'for': 'markdown'}
 
   " dependency for vim-session
   Plug 'xolox/vim-misc'
@@ -32,18 +37,18 @@ endif
 
   " sane buffer closing
   Plug 'vim-scripts/bufkill.vim'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'tomtom/tcomment_vim'
 
   " improved syntax highlighting for javascript
   " further tweaks below
   Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
 
+  " show git diff in the number column
+  Plug 'airblade/vim-gitgutter'
+
   " plugins that should only be on main machines (e.g. not on servers)
   if g:isFullInstall
     " deps: compiled component
     Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
-
     Plug 'scrooloose/syntastic'
 
     " switch between header/sources files
@@ -68,9 +73,16 @@ endif
 " }}}
 
 " General {{{
+
   set encoding=UTF8
+
   " no error/visualbells
   set noeb vb t_vb =
+
+  " folding
+  set foldenable
+  set foldlevelstart=99
+  set foldmethod=syntax
 
   " persistent undo
   set undofile
@@ -252,7 +264,8 @@ endif
     hi link jsFunctionKey Function
     hi link jsFuncAssignIdent Function
     hi link jsThis Identifier
-    hi link jsStorageClass Identifier
+    " if/switch/for/while same color
+    hi link jsRepeat Conditional
   " }}}
 
   if g:isFullInstall
