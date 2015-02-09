@@ -12,20 +12,22 @@ endif
   call plug#begin('~/.vim/plugged')
   Plug 'chriskempson/base16-vim'
   Plug 'Raimondi/delimitMate'
+  " make surroundings repeatable
+  Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'bling/vim-airline'
-  Plug 'terryma/vim-multiple-cursors'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tomtom/tcomment_vim'
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
 
+
   " git plugin
   Plug 'tpope/vim-fugitive'
 
-  Plug 'tpope/vim-markdown', {'for': 'markdown'}
-  " depends on 'tpope/vim-markdown'
-  Plug 'nelstrom/vim-markdown-folding', {'for': 'markdown'}
+  " external deps: pandoc
+  Plug 'vim-pandoc/vim-pandoc'
+  Plug 'vim-pandoc/vim-pandoc-syntax'
 
   " dependency for vim-session
   Plug 'xolox/vim-misc'
@@ -44,6 +46,10 @@ endif
 
   " show git diff in the number column
   Plug 'airblade/vim-gitgutter'
+
+  " live preview of complex regex searches
+  Plug 'haya14busa/incsearch.vim'
+
 
   " plugins that should only be on main machines (e.g. not on servers)
   if g:isFullInstall
@@ -132,7 +138,6 @@ endif
 
 " File Handling {{{
   set autoread
-  set autowriteall " write when switching buffers, exiting ...
   set nobackup
   set noswapfile
 " }}}
@@ -148,10 +153,24 @@ endif
   set cindent
 " }}}
 
-" Autocommands {{{
+" Functions {{{
 
-  " Save all buffers when focus is lost
-  au FocusLost * silent! wa
+  " Display the syntax highlight groups for word under cursor
+  function! SynStack()
+    if !exists('*synstack')
+      return
+    endif
+    echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
+  endfunc
+
+  " Open a new MacVim instance in my notes directory
+  function! s:openNotes()
+    if has('macunix')
+      call system("mvim +cd~/Dropbox/notes +NERDTree")
+    endif
+  endfunction
+
+  command OpenNotes :call s:openNotes()
 
 " }}}
 
@@ -253,6 +272,18 @@ endif
 
   " Bufkill {{{
     nmap <silent> <Leader>bd :BD<CR>
+  " }}}
+
+  " Incsearch {{{
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
+  "}}}
+
+  " Pandoc {{{
+    let g:pandoc#syntax#conceal#use=0
+    let g:pandoc#folding#fdc=0
+    let g:pandoc#spell#enabled=0
   " }}}
 
   if g:isFullInstall
