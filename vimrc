@@ -208,12 +208,10 @@ endif
   " }}}
 
   " NerdTree {{{
-    " Show hidden files
     let NERDTreeShowHidden = 1
     let NERDTreeIgnore = ['^\.git$', '^\.DS_Store$', '\.pyc$']
 
-    noremap <silent> <Leader>O :NERDTreeToggle<CR>
-    noremap <silent> <Leader>o :NERDTreeFocus<CR>
+    noremap <silent> <Leader>o :NERDTreeToggle<CR>
   " }}}
 
   " Airline {{{
@@ -255,17 +253,6 @@ endif
 
   " Bufkill {{{
     nmap <silent> <Leader>bd :BD<CR>
-  " }}}
-
-  " Javascript Syntax {{{
-    " should probably go somewhere else
-    hi link jsFuncCall Function
-    hi link jsObjectKey Special
-    hi link jsFunctionKey Function
-    hi link jsFuncAssignIdent Function
-    hi link jsThis Identifier
-    " if/switch/for/while same color
-    hi link jsRepeat Conditional
   " }}}
 
   if g:isFullInstall
