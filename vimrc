@@ -28,6 +28,7 @@ endif
   " external deps: pandoc
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'vim-pandoc/vim-pandoc-syntax'
+  Plug 'godlygeek/tabular'
 
   " dependency for vim-session
   Plug 'xolox/vim-misc'
@@ -166,11 +167,11 @@ endif
   " Open a new MacVim instance in my notes directory
   function! s:openNotes()
     if has('macunix')
-      call system("mvim +cd~/Dropbox/notes +NERDTree")
+      call system("mvim +cd~/Dropbox/Notes")
     endif
   endfunction
 
-  command OpenNotes :call s:openNotes()
+  command! OpenNotes :call s:openNotes()
 
 " }}}
 
@@ -222,6 +223,8 @@ endif
 " Plugins {{{
 
   " DelimitMate {{{
+    " exclude `
+    let delimitMate_quotes = "\" '"
     " put closing bracket on seperate line after enter
     let g:delimitMate_expand_cr = 1
   " }}}
@@ -237,8 +240,10 @@ endif
     " show current branch in status line (req. Fugitive)
     let g:airline#extensions#branch#enabled = 1
 
-    " enhanced tabline
+    " show buffers on the top of the window
     let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#buffer_min_count = 1
+
     " quickly select open buffers (max 9)
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     nmap <leader>1 <Plug>AirlineSelectTab1
@@ -284,6 +289,12 @@ endif
     let g:pandoc#syntax#conceal#use=0
     let g:pandoc#folding#fdc=0
     let g:pandoc#spell#enabled=0
+  " }}}
+
+  " CTLRP {{{
+    " ctrlp on the top of the window instead on of the bottom
+    let g:ctrlp_match_window_bottom   = 0
+    let g:ctrlp_match_window_reversed = 0
   " }}}
 
   if g:isFullInstall
