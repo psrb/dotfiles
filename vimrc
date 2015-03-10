@@ -21,7 +21,6 @@ endif
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
 
-
   " git plugin
   Plug 'tpope/vim-fugitive'
 
@@ -50,7 +49,6 @@ endif
 
   " live preview of complex regex searches
   Plug 'haya14busa/incsearch.vim'
-
 
   " plugins that should only be on main machines (e.g. not on servers)
   if g:isFullInstall
@@ -170,8 +168,19 @@ endif
       call system("mvim +cd~/Dropbox/Notes")
     endif
   endfunction
-
   command! OpenNotes :call s:openNotes()
+
+  " Switch between dark and light colorschemes
+  function! s:toggleLightColorscheme()
+    if &background ==? "light"
+      set background=dark
+      colorscheme base16-ocean
+    else
+      set background=light
+      colorscheme base16-solarized
+    endif
+  endfunc
+  command! ToggleLightColorscheme :call s:toggleLightColorscheme()
 
 " }}}
 
