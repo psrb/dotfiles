@@ -1,8 +1,9 @@
 " vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker fdl=0
-set nocompatible
+scriptencoding utf-8
 
-" The environment variable VIM_LIGHT_INSTALL controls if all plugins should be
-" installed
+" The environment variable VIM_LIGHT_INSTALL controls wether all plugins
+" should be installed (e.g. plugins that have external dependencies or
+" should only be on main machines and not on servers)
 let g:isFullInstall = 1
 if $VIM_LIGHT_INSTALL != ""
   let g:isFullInstall = 0
@@ -11,20 +12,29 @@ endif
 " Plug setup {{{
   call plug#begin('~/.vim/plugged')
   Plug 'chriskempson/base16-vim'
-  Plug 'Raimondi/delimitMate'
-  " make surroundings repeatable
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
   Plug 'bling/vim-airline'
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'tomtom/tcomment_vim'
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
+
+  " autoclosing of brackets, quotes, etc.
+  Plug 'Raimondi/delimitMate'
+
+  " make surroundings repeatable
+  Plug 'tpope/vim-repeat'
+  " motions for surrounding text objects with brackets, quotes, etc.
+  Plug 'tpope/vim-surround'
+
+  " commands for toggling of comments
+  Plug 'tomtom/tcomment_vim'
 
   " git plugin
   Plug 'tpope/vim-fugitive'
 
-  " external deps: pandoc
+  " show git diff in the number column
+  Plug 'airblade/vim-gitgutter'
+
+  " essential for markdown editing. external deps: pandoc
   Plug 'vim-pandoc/vim-pandoc'
   Plug 'vim-pandoc/vim-pandoc-syntax'
   Plug 'godlygeek/tabular'
@@ -41,19 +51,16 @@ endif
   Plug 'vim-scripts/bufkill.vim'
 
   " improved syntax highlighting for javascript
-  " further tweaks below
   Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
-
-  " show git diff in the number column
-  Plug 'airblade/vim-gitgutter'
 
   " live preview of complex regex searches
   Plug 'haya14busa/incsearch.vim'
 
-  " plugins that should only be on main machines (e.g. not on servers)
   if g:isFullInstall
     " deps: compiled component
     Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
+
+    " syntax checking
     Plug 'scrooloose/syntastic'
 
     " switch between header/sources files
@@ -61,6 +68,8 @@ endif
 
     " external deps: clang format
     Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
+
+    " syntax highlighting, autocomplete and more nice things for go
     Plug 'fatih/vim-go', {'for': 'go'}
 
     " external deps: ctags
@@ -78,11 +87,12 @@ endif
 " }}}
 
 " General {{{
-
   set encoding=UTF8
 
-  " no error/visualbells
-  set noeb vb t_vb =
+  " disable the visual/error bells
+  set noerrorbells
+  " and enable visual bell, but clear the visual bell character
+  set visualbell t_vb =
 
   " folding
   set foldenable
@@ -95,44 +105,45 @@ endif
 " }}}
 
 " UI {{{
-  syntax on
-  set background=dark
-  colorscheme base16-ocean
-
-  set number
-  set ruler " position  of cursor
+  set title " Display the current file and path as the title
   set showcmd " show incomplete command in status bar
-  set colorcolumn=+1 " display column 1 column after textwidth
-  set title " Title of window
-  set wildmenu
-  set wildmode=list:longest,full
-  set list
-  set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-  set cursorline
+
   set splitright " new vertical splits always to the right
   set splitbelow " new horizontal splits always below
-  set laststatus=2
+  set laststatus=2 "always show the status line
 
-  " Search {{{
-    set hlsearch
-    set incsearch
-    set ignorecase
-    set smartcase
-  " }}}
+  " better commandline completion
+  set wildmenu
+  set wildmode=list:longest,full
 
-  if has("gui_running")
-    if has('macunix')
-      set guifont=Menlo:h13
-      set linespace=1 " inline with terminal/sublime
+  " Editor {{{
+    syntax on
+    set background=dark
+    colorscheme base16-ocean
+
+    set number " line numbers
+    set ruler " position  of cursor
+    set colorcolumn=+1 " highlight one column after textwidth
+    set cursorline " highlight the line of the cursor
+
+    " show tabs, trailing spaces, non-breaking spaces and line wraps
+    set list
+    set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
+    if has("gui_running")
+      if has('macunix')
+        set guifont=Menlo:h13
+        set linespace=1 " same as terminal/sublime
+      endif
+
+      set guioptions-=T " disable tab bar
+      set guioptions-=m " disable menu
+      set guioptions-=r " disable right scroll bar
+      set guioptions-=R " disable right scroll bar
+      set guioptions-=l " disable left scroll bar
+      set guioptions-=L " disable left scroll bar
     endif
-
-    set guioptions-=T " disable tab bar
-    set guioptions-=m " disable menu
-    set guioptions-=r " disable right scroll bar
-    set guioptions-=R " disable right scroll bar
-    set guioptions-=l " disable left scroll bar
-    set guioptions-=L " disable left scroll bar
-  endif
+  " }}}
 " }}}
 
 " File Handling {{{
@@ -150,6 +161,13 @@ endif
   set autoindent
   set copyindent
   set cindent
+" }}}
+
+" Search {{{
+  set hlsearch
+  set incsearch
+  set ignorecase
+  set smartcase
 " }}}
 
 " Functions {{{
@@ -187,13 +205,13 @@ endif
 " Key mappings {{{
 
   " better movement between windows
-  nmap <C-h> <C-w>h
-  nmap <C-j> <C-w>j
-  nmap <C-k> <C-w>k
-  nmap <C-l> <C-w>l
+  nnoremap <C-h> <C-w>h
+  nnoremap <C-j> <C-w>j
+  nnoremap <C-k> <C-w>k
+  nnoremap <C-l> <C-w>l
 
   " resize active window to 60% of the window width
-  nmap <silent> <Leader>r :exe "vertical resize " .
+  nnoremap <silent> <Leader>r :exe "vertical resize " .
         \ string(round(&columns * 0.60))<CR>
 
   " make j/k useful for long lines
@@ -205,7 +223,7 @@ endif
   nnoremap <C-f> <C-f>zz
 
   " making saving easier
-  nmap <Leader>w :w<cr>
+  nnoremap <Leader>w :w<cr>
 
   " 'sudo save'
   cnoremap w!! w !sudo tee % >/dev/null
@@ -213,9 +231,6 @@ endif
   " Newlines above/below current line without leaving normal mode
   nnoremap <silent> zk O<Esc>j
   nnoremap <silent> zj o<Esc>k
-
-  " Add two newlines and position cursor on the first one in insert mode
-  nmap <S-cr> o<cr><esc>ki
 
   " Keep selection when (re-)indenting
   vnoremap < <gv
@@ -229,7 +244,7 @@ endif
   nnoremap N Nzzzv
 
   " reload vimrc
-  nmap <F2> :source $MYVIMRC<cr>:echom "vimrc reloaded"<cr>
+  nnoremap <F2> :source $MYVIMRC<cr>:echom "vimrc reloaded"<cr>
 
 " }}}
 
@@ -255,7 +270,6 @@ endif
 
     " show buffers on the top of the window
     let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#buffer_min_count = 1
 
     " quickly select open buffers (max 9)
     let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -277,19 +291,18 @@ endif
   " }}}
 
   " Fswitch {{{
-    nmap <Leader>h :FSHere<CR>
+    nnoremap <Leader>h :FSHere<CR>
     let g:fsnonewfiles = ''
   " }}}
 
   " Session {{{
     let g:session_autosave = "yes"
     let g:session_autoload = "no"
-    let g:session_persist_colors = 0
     let g:session_command_aliases = 1
   " }}}
 
   " Bufkill {{{
-    nmap <silent> <Leader>bd :BD<CR>
+    nnoremap <silent> <Leader>bd :BD<CR>
   " }}}
 
   " Incsearch {{{
@@ -315,9 +328,9 @@ endif
       let g:ycm_global_ycm_extra_conf = "~/.dotfiles/ycm_extra_conf.py"
       let g:ycm_autoclose_preview_window_after_insertion = 1
 
-      nmap <silent> <Leader>yg :YcmCompleter GoTo<CR>
-      nmap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
-      nmap <silent> <Leader>yf :YcmCompleter GoToDefinition<CR>
+      nnoremap <silent> <Leader>yg :YcmCompleter GoTo<CR>
+      nnoremap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
+      nnoremap <silent> <Leader>yf :YcmCompleter GoToDefinition<CR>
     " }}}
 
     " ClangFormat {{{
