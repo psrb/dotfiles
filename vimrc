@@ -1,4 +1,4 @@
-" vim: sw=2 ts=2 sts=2 et foldmarker={{{,}}} foldmethod=marker
+" vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker fdl=0
 set nocompatible
 
 " The environment variable VIM_LIGHT_INSTALL controls if all plugins should be
@@ -192,6 +192,10 @@ endif
   nmap <C-k> <C-w>k
   nmap <C-l> <C-w>l
 
+  " resize active window to 60% of the window width
+  nmap <silent> <Leader>r :exe "vertical resize " .
+        \ string(round(&columns * 0.60))<CR>
+
   " make j/k useful for long lines
   nnoremap j gj
   nnoremap k gk
@@ -200,7 +204,7 @@ endif
   nnoremap <C-b> <C-b>zz
   nnoremap <C-f> <C-f>zz
 
-  " making saving easer
+  " making saving easier
   nmap <Leader>w :w<cr>
 
   " 'sudo save'
