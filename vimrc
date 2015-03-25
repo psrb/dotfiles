@@ -34,11 +34,6 @@ endif
   " show git diff in the number column
   Plug 'airblade/vim-gitgutter'
 
-  " essential for markdown editing. external deps: pandoc
-  Plug 'vim-pandoc/vim-pandoc'
-  Plug 'vim-pandoc/vim-pandoc-syntax'
-  Plug 'godlygeek/tabular'
-
   " dependency for vim-session
   Plug 'xolox/vim-misc'
   " Nice session management
@@ -82,6 +77,11 @@ endif
 
     " glsl shader language syntax definitions
     Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
+
+    " essential for markdown editing. external deps: pandoc
+    Plug 'vim-pandoc/vim-pandoc'
+    Plug 'vim-pandoc/vim-pandoc-syntax'
+    Plug 'godlygeek/tabular'
   endif
   call plug#end()
 " }}}
