@@ -311,14 +311,7 @@ endif
     map g/ <Plug>(incsearch-stay)
   "}}}
 
-  " Pandoc {{{
-    let g:pandoc#syntax#conceal#use=0
-    let g:pandoc#folding#fdc=0
-    let g:pandoc#spell#enabled=0
-    let g:pandoc#modules#disabled = ["chdir"]
-  " }}}
-
-  " CTLRP {{{
+  " CTRLP {{{
     " ctrlp on the top of the window instead on of the bottom
     let g:ctrlp_match_window_bottom   = 0
     let g:ctrlp_match_window_reversed = 0
@@ -346,6 +339,13 @@ endif
 
     " Syntastic {{{
       let g:syntastic_always_populate_loc_list = 1
+    " }}}
+
+    " Pandoc {{{
+      let g:pandoc#syntax#conceal#use=0
+      let g:pandoc#folding#fdc=0
+      let g:pandoc#spell#enabled=0
+      let g:pandoc#modules#disabled = ["chdir"]
     " }}}
   endif
 
