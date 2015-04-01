@@ -126,10 +126,10 @@ if [[ "$TERM" == *xterm* ]] || [[ "$TERM" == rxvt* ]]; then
     function title_precmd {
         # display user@host only in ssh sessions
         if [[ -n "$SSH_CLIENT" ]] || [[ -n "$SSH_CONNECTION" ]]; then
-            ssh_prefix='%n@%m'
+            ssh_prefix='%n@%m: '
         fi
 
-        window_title="${ssh_prefix}: %~"
+        window_title="${ssh_prefix}%~"
         if [[ $TERM_PROGRAM == Apple_Terminal ]] && [[ -z $INSIDE_EMACS ]]; then
             # from: https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/termsupport.zsh
             #
