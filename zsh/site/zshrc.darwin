@@ -1,0 +1,28 @@
+
+hash -d Notes=~/Dropbox/notes
+hash -d Projects=~/Projects
+
+alias brewup="brew update"
+alias brewug="brew upgrade"
+alias brewo="brew outdated"
+alias brewi="brew install"
+alias brewc="brew cleanup"
+alias brewls="brew list"
+
+##### Functions #####
+
+function notes() {
+    mvim +cd$(<<<~Notes) ~Notes/$^@
+}
+
+# Completion function for notes(), could be improved...
+function _notes() {
+    local context state state_descr line expl
+    typeset -A opt_args
+
+    files=(~Notes/**/*.md)
+    notes=(${files#~Notes/})
+    _wanted notes expl 'all notes' compadd -a notes
+}
+compdef _notes notes
+
