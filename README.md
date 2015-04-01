@@ -3,9 +3,10 @@ dotfiles
 A collection of my various dotfiles.
 
 ## Usage
-`./install.sh` downloads oh-my-zsh and vim-plug, creates all necessary symlinks and folders and installs the plugins for Vim.
+`./install.sh` creates all necessary links, folders, downloads [vim-plug](https://github.com/junegunn/vim-plug) and installs all Vim plugins.
 
-If the environment variable `VIM_LIGHT_INSTALL` is set some Vim plugins will not be installed.
+Which Vim plugins will be installed can be controlled on a per-machine basis via the `g:isCompleteInstall` variable.
+By default all plugins are installed. The variable can be overwritten in `vim/install_type.vim` (handled by `install.sh`).
 
 ## Dependencies
 
