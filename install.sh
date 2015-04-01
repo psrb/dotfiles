@@ -2,7 +2,7 @@
 
 ask() {
     read -p "$1 [yN]: " yn
-    if [ "$yn" == "y" ] || [ "$yn" == "Y" ]; then
+    if [ "$yn" = "y" ] || [ "$yn" = "Y" ]; then
         return 0
     fi
     return 1
@@ -69,7 +69,6 @@ download_plug_vim() {
 echo "Checking installs"
 check_installed vim
 check_installed zsh
-check_installed tmux
 echo
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
