@@ -1,51 +1,103 @@
 #!/bin/sh
 
-command -v vim >/dev/null 2>&1
-VIM_INSTALLED=$?
-if [ $VIM_INSTALLED -ne 0 ]; then
-    printf "Vim is not installed.\n"
-    exit 1
-fi
+ask() {
+    read -p "$1 [yN]: " yn
+    if [[ "$yn" == "y" ]] || [[ "$yn" == "Y" ]]; then
+        return 0
+    fi
+    return 1
+}
 
-printf "Cloning oh-my-zsh ...\t"
-if [ ! -d oh-my-zsh ]; then
-    printf "\n"
-    git clone git://github.com/robbyrussell/oh-my-zsh.git oh-my-zsh
-    printf "\n"
-else
-    printf "already installed!\n"
-fi
+check_installed() {
+    printf " %s: " $1
+    if command -v $1 >/dev/null 2>&1; then
+        echo "installed!"
+    else
+        echo "not installed!"
+        exit 1
+    fi
+}
 
-printf "Cloning plug.vim    ...\t"
-if [ ! -f vim/autoload/plug.vim ]; then
-    printf "\n"
-    curl -fLo vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    printf "\n"
-else
-    printf "already installed!\n"
-fi
+# Create a link named $2 to file $1.
+# Overwrites existing links.
+# Overwrites all other files only on user confirmatio
+create_link() {
+    file=$1
+    link_name=$2
 
-printf "Creating folders\n"
-[ ! -d ~/.vimundo ] && mkdir ~/.vimundo
+    printf " Link: %s -> %s\n" $link_name $file
+    if [[ -a $link_name ]]; then # file exists
+        if [[ -h $link_name ]]; then # is a symbolic link
+            rm $link_name
+        else # is regular file, ask what to do
+            if ask " Do you want to overwrite \"$link_name\"? "; then
+                if [[ -d $link_name ]]; then
+                    rm -r $link_name
+                else
+                    rm $link_name
+                fi
+            else
+                return
+            fi
+        fi
+    fi
 
-printf "Creating symlinks\n"
+    ln -s $file $link_name
+}
+
+download_plug_vim() {
+    file_path=$1
+
+    printf "Downloading plug.vim ...\t"
+    if [[ -a $file_path ]]; then
+        echo "already downloaded!"
+        return
+    fi
+
+    if curl -sfLo $file_path --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
+    then
+        echo "downloaded!"
+    else
+        echo "failed!"
+        exit 1
+    fi
+}
+
+##### MAIN #####
+
+echo "Checking installs"
+check_installed vim
+check_installed zsh
+check_installed tmux
+echo
+
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-[ ! -h ~/.tmux.conf ] && ln -s $SCRIPT_DIR/tmux.conf ~/.tmux.conf
-[ ! -h ~/.vim ] && ln -s $SCRIPT_DIR/vim ~/.vim
-[ ! -h ~/.vimrc ] && ln -s $SCRIPT_DIR/vimrc ~/.vimrc
-[ ! -h ~/.oh-my-zsh ] && ln -s $SCRIPT_DIR/oh-my-zsh ~/.oh-my-zsh
-[ ! -h ~/.zshenv ] && ln -s $SCRIPT_DIR/zshenv ~/.zshenv
-[ ! -h ~/.zshrc ] && ln -s $SCRIPT_DIR/zshrc ~/.zshrc
+
+echo "Creating links"
+create_link $SCRIPT_DIR/tmux.conf ~/.tmux.conf
+create_link $SCRIPT_DIR/vim ~/.vim
+create_link $SCRIPT_DIR/vimrc ~/.vimrc
+create_link $SCRIPT_DIR/zshenv ~/.zshenv
+create_link $SCRIPT_DIR/zshrc ~/.zshrc
+create_link $SCRIPT_DIR/zsh ~/.zsh
+echo
+
+echo "Creating folders"
+echo " Folder: ~/.vimundo"
+[[ ! -d ~/.vimundo ]] && mkdir ~/.vimundo
+echo
+
+download_plug_vim $SCRIPT_DIR/vim/autoload/plug.vim
+echo
 
 printf "Installing Vim plugins\n"
-
-read -p "Light install (less plugins)? [yN]:" yn
-if [ "$yn" = "y" ] || [ "$yn" = "Y" ]; then
+if ask " Light install (less plugins)?"; then
     echo "Remember to export the environment variable 'VIM_LIGHT_INSTALL'!"
     export VIM_LIGHT_INSTALL=1
 fi
-vim +PlugInstall
+vim +PlugInstall +sleep4 +qa
+echo
 
-printf "Finished\n"
+echo "Finished!\n"
 
