@@ -2,7 +2,7 @@
 
 ask() {
     read -p "$1 [yN]: " yn
-    if [[ "$yn" == "y" ]] || [[ "$yn" == "Y" ]]; then
+    if [ "$yn" == "y" ] || [ "$yn" == "Y" ]; then
         return 0
     fi
     return 1
@@ -26,12 +26,12 @@ create_link() {
     link_name=$2
 
     printf " Link: %s -> %s\n" $link_name $file
-    if [[ -a $link_name ]]; then # file exists
-        if [[ -h $link_name ]]; then # is a symbolic link
+    if [ -e $link_name ]; then # file exists
+        if [ -h $link_name ]; then # is a symbolic link
             rm $link_name
         else # is regular file, ask what to do
-            if ask " Do you want to overwrite \"$link_name\"? "; then
-                if [[ -d $link_name ]]; then
+            if ask " File \"$link_name\" exists! Do you want to overwrite it? "; then
+                if [ -d $link_name ]; then
                     rm -r $link_name
                 else
                     rm $link_name
@@ -49,7 +49,7 @@ download_plug_vim() {
     file_path=$1
 
     printf "Downloading plug.vim ...\t"
-    if [[ -a $file_path ]]; then
+    if [ -e $file_path ]; then
         echo "already downloaded!"
         return
     fi
@@ -85,7 +85,7 @@ echo
 
 echo "Creating folders"
 echo " Folder: ~/.vimundo"
-[[ ! -d ~/.vimundo ]] && mkdir ~/.vimundo
+[ ! -d ~/.vimundo ] && mkdir ~/.vimundo
 echo
 
 download_plug_vim $SCRIPT_DIR/vim/autoload/plug.vim
@@ -93,11 +93,11 @@ echo
 
 printf "Installing Vim plugins\n"
 if ask " Light install (less plugins)?"; then
-    echo "Remember to export the environment variable 'VIM_LIGHT_INSTALL'!"
+    echo " Remember to export the environment variable 'VIM_LIGHT_INSTALL'!"
     export VIM_LIGHT_INSTALL=1
 fi
 vim +PlugInstall +sleep4 +qa
 echo
 
-echo "Finished!\n"
+echo "Finished!"
 
