@@ -57,7 +57,7 @@ autoload -Uz compinit && compinit
 # Prompt {{{
 
 # configuring version control info in prompt
-zstyle ':vcs_info:*' formats '‹%b%u›'
+zstyle ':vcs_info:*' formats '‹%b%u%c›'
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr '!'
 zstyle ':vcs_info:*' unstagedstr '*'
