@@ -8,9 +8,6 @@
 #   zsh/modules/: Additional functions/aliases/hashes
 #   zsh/site/zshrc.$(uname): System specific settings
 
-# TODO:
-# - Redo the installation script
-
 # Options {{{
 
 setopt PROMPT_SUBST      # Allow parameter expansion, command substitution in prompt
@@ -62,7 +59,7 @@ autoload -Uz compinit && compinit
 # configuring version control info in prompt
 zstyle ':vcs_info:*' formats '‹%b%u›'
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr ' '
+zstyle ':vcs_info:*' stagedstr '!'
 zstyle ':vcs_info:*' unstagedstr '*'
 zstyle ':vcs_info:*' enable git
 
@@ -169,7 +166,7 @@ for module in $HOME/.zsh/modules/*.zsh; do
     source $module
 done
 
-local system=$(uname)
+local system=${$(uname):l}
 if [[ -f $HOME/.zsh/site/zshrc.$system ]]; then
     source $HOME/.zsh/site/zshrc.$system
 fi
