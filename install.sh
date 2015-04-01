@@ -26,19 +26,18 @@ create_link() {
     link_name=$2
 
     printf " Link: %s -> %s\n" $link_name $file
-    if [ -e $link_name ]; then # file exists
-        if [ -h $link_name ]; then # is a symbolic link
-            rm $link_name
-        else # is regular file, ask what to do
-            if ask " File \"$link_name\" exists! Do you want to overwrite it? "; then
-                if [ -d $link_name ]; then
-                    rm -r $link_name
-                else
-                    rm $link_name
-                fi
+
+    if [ -h $link_name ]; then # is a symbolic link
+        rm $link_name
+    elif [ -e $link_name ]; then # other file exists
+        if ask " File \"$link_name\" exists! Do you want to overwrite it? "; then
+            if [ -d $link_name ]; then
+                rm -r $link_name
             else
-                return
+                rm $link_name
             fi
+        else
+            return
         fi
     fi
 
@@ -76,10 +75,9 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 echo "Creating links"
 create_link $SCRIPT_DIR/tmux.conf ~/.tmux.conf
 create_link $SCRIPT_DIR/vim ~/.vim
-create_link $SCRIPT_DIR/vimrc ~/.vimrc
-create_link $SCRIPT_DIR/zshenv ~/.zshenv
-create_link $SCRIPT_DIR/zshrc ~/.zshrc
 create_link $SCRIPT_DIR/zsh ~/.zsh
+create_link $SCRIPT_DIR/zsh/zshenv ~/.zshenv
+create_link $SCRIPT_DIR/zsh/zshrc ~/.zshrc
 echo
 
 echo "Creating folders"
