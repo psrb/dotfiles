@@ -91,9 +91,14 @@ download_plug_vim $SCRIPT_DIR/vim/autoload/plug.vim
 echo
 
 printf "Installing Vim plugins\n"
-if ask " Light install (less plugins)?"; then
-    echo " Remember to export the environment variable 'VIM_LIGHT_INSTALL'!"
-    export VIM_LIGHT_INSTALL=1
+
+vim_install_type=vim/install_type.vim
+if [ ! -e  $vim_install_type ]; then
+    if ask " Install all vim plugins?"; then
+        echo "let g:isCompleteInstall = 1" > $vim_install_type
+    else
+        echo "let g:isCompleteInstall = 0" > $vim_install_type
+    fi
 fi
 vim +PlugInstall +sleep4 +qa
 echo

@@ -1,13 +1,13 @@
-" vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker fdl=0
+" vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker
 scriptencoding utf-8
 
-" The environment variable VIM_LIGHT_INSTALL controls wether all plugins
-" should be installed (e.g. plugins that have external dependencies or
-" should only be on main machines and not on servers)
-let g:isFullInstall = 1
-if $VIM_LIGHT_INSTALL != ""
-  let g:isFullInstall = 0
-endif
+" This variable controls which plugins get installed, either all plugins or a
+" smaller subset which are not necessary on some machines (e.g. servers).
+" If g:isCompleteInstall == 1 all plugins will be installed, otherwise just the
+" subset.
+" The variable can be overriden in ./vim/site/install_type.vim.
+let g:isCompleteInstall = 1
+try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
 " Plug setup {{{
   call plug#begin('~/.vim/plugged')
@@ -51,7 +51,7 @@ endif
   " live preview of complex regex searches
   Plug 'haya14busa/incsearch.vim'
 
-  if g:isFullInstall
+  if g:isCompleteInstall == 1
     " deps: compiled component
     Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
 
@@ -317,7 +317,11 @@ endif
     let g:ctrlp_match_window_reversed = 0
   " }}}
 
-  if g:isFullInstall
+  " GitGutter {{{
+    let g:gitgutter_enabled = 0
+  " }}}
+
+  if g:isCompleteInstall == 1
     " YouCompleteMe {{{
       let g:ycm_global_ycm_extra_conf = "~/.dotfiles/ycm_extra_conf.py"
       let g:ycm_autoclose_preview_window_after_insertion = 1

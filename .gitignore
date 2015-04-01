@@ -1,9 +1,8 @@
+*.pyc
 .DS_Store
-oh-my-zsh
 vim/.netrwhist
-vim/bundle
-vim/plugged
 vim/autoload
+vim/install_type.vim
+vim/plugged
 vim/sessions
 vim/spell
-*.pyc
