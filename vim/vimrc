@@ -31,16 +31,13 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   " git plugin
   Plug 'tpope/vim-fugitive'
 
-  " show git diff in the number column
-  Plug 'airblade/vim-gitgutter'
-
   " dependency for vim-session
   Plug 'xolox/vim-misc'
   " Nice session management
   Plug 'xolox/vim-session'
 
   " also better highlights for c
-  Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+  Plug 'octol/vim-cpp-enhanced-highlight'
 
   " sane buffer closing
   Plug 'vim-scripts/bufkill.vim'
@@ -48,10 +45,10 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   " improved syntax highlighting for javascript
   Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
 
-  " live preview of complex regex searches
-  Plug 'haya14busa/incsearch.vim'
-
   if g:isCompleteInstall == 1
+    " show git diff in the number column
+    Plug 'airblade/vim-gitgutter'
+
     " deps: compiled component
     Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
 
@@ -295,30 +292,20 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     let g:fsnonewfiles = ''
   " }}}
 
-  " Session {{{
+    " Session {{{
     let g:session_autosave = "yes"
     let g:session_autoload = "no"
     let g:session_command_aliases = 1
-  " }}}
+    " }}}
 
   " Bufkill {{{
     nnoremap <silent> <Leader>bd :BD<CR>
   " }}}
 
-  " Incsearch {{{
-    map /  <Plug>(incsearch-forward)
-    map ?  <Plug>(incsearch-backward)
-    map g/ <Plug>(incsearch-stay)
-  "}}}
-
   " CTRLP {{{
     " ctrlp on the top of the window instead on of the bottom
     let g:ctrlp_match_window_bottom   = 0
     let g:ctrlp_match_window_reversed = 0
-  " }}}
-
-  " GitGutter {{{
-    let g:gitgutter_enabled = 0
   " }}}
 
   if g:isCompleteInstall == 1
@@ -351,7 +338,11 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
       let g:pandoc#spell#enabled=0
       let g:pandoc#modules#disabled = ["chdir"]
     " }}}
-  endif
 
+    " GitGutter {{{
+    let g:gitgutter_enabled = 0
+    " }}}
+
+  endif
 " }}}
 
