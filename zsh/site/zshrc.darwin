@@ -2,12 +2,18 @@
 hash -d Notes=~/Dropbox/notes
 hash -d Projects=~/Projects
 
+# Brew
 alias brewup="brew update"
 alias brewug="brew upgrade"
 alias brewo="brew outdated"
 alias brewi="brew install"
 alias brewc="brew cleanup"
 alias brewls="brew list"
+
+# Latexmk
+alias lmkcon="latexmk -pvc -pdf"
+alias lmkcl="latexmk -c"
+alias lmkclf="latexmk -C"
 
 ##### Functions #####
 

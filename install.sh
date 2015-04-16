@@ -73,6 +73,7 @@ echo
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 echo "Creating links"
+create_link $SCRIPT_DIR/latexmkrc ~/.latexmkrc
 create_link $SCRIPT_DIR/tmux.conf ~/.tmux.conf
 create_link $SCRIPT_DIR/vim ~/.vim
 create_link $SCRIPT_DIR/vim/vimrc ~/.vimrc
