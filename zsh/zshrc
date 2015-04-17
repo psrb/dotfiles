@@ -136,7 +136,7 @@ if [[ "$TERM" == *xterm* ]] || [[ "$TERM" == rxvt* ]]; then
             # The Apple terminal takes care of displaying the pwd.
             # Bonus feature: New tabs will be openend in the same directory
             local PWD_URL="file://$HOSTNAME${PWD// /%20}"
-            print -Pn "\e]7;$PWD_URL\a"
+            printf '\e]7;%s\a' "$PWD_URL"
             window_title="$ssh_prefix"
         fi
 
