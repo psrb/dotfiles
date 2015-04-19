@@ -23,6 +23,7 @@ setopt NO_FLOW_CONTROL   # Allow the binding of <C-s> and <C-q> which are normal
 setopt NO_MENU_COMPLETE  # Don't insert the first match immediately
 setopt AUTO_MENU         # Show completion menu
 setopt EXTENDED_GLOB
+setopt COMBINING_CHARS
 
 # }}}
 
@@ -48,6 +49,7 @@ setopt HIST_NO_STORE          # Don't add the history command to the history
 
 autoload -U colors && colors
 autoload -U vcs_info
+autoload edit-command-line && zle -N edit-command-line
 
 fpath=($HOME/.zsh/completion/ $fpath) # needs to be set before compinit!
 autoload -Uz compinit && compinit
@@ -112,6 +114,7 @@ bindkey -M emacs "^[[Z" reverse-menu-complete # Shift-tab selects backwards in c
 bindkey -M emacs "^X?" _complete_debug
 bindkey -M emacs "^Xh" _complete_help         # see completion context names, tags and completion functions at current cursor
 
+bindkey -M emacs "^[v" edit-command-line
 # use pattern matching in history searches
 bindkey -M emacs "^R" history-incremental-pattern-search-backward
 bindkey -M emacs "^S" history-incremental-pattern-search-forward
