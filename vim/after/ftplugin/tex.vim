@@ -1,5 +1,5 @@
 
-noremap <buffer> <silent> <leader>ll :silent !/Applications/Skim.app/Contents/SharedSupport/displayline -g -r <C-r>=line('.')<CR> "%<.pdf" "%"<CR>
+noremap <buffer> <silent> <leader>ls :silent !/Applications/Skim.app/Contents/SharedSupport/displayline -g -r <C-r>=line('.')<CR> "%<.pdf" "%"<CR>
 
 " TODO better way of sharing these between markdown and latex than copy/paste
 
