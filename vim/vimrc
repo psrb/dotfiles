@@ -86,9 +86,8 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     " community.
     Plug 'honza/vim-snippets'
 
-    " Some useful additions for LaTex editing, some annoying stuff
-    " TODO: Reevaluate later
-    Plug 'LaTeX-Box-Team/LaTeX-Box'
+    " Some useful additions for LaTex editing
+    Plug 'lervag/vimtex'
   endif
   call plug#end()
 " }}}
@@ -359,12 +358,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
       let g:UltiSnipsExpandTrigger="<c-l>"
       let g:UltiSnipsJumpForwardTrigger="<tab>"
       let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-    " }}}
-
-    " LatexBox {{{
-      let g:LatexBox_latexmk_async=1
-      let g:LatexBox_latexmk_preview_continuously=1
-      let g:LatexBox_quickfix=2 " open quickfix window but stay in current window
     " }}}
 
   endif
