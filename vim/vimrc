@@ -340,6 +340,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
     " Syntastic {{{
       let g:syntastic_always_populate_loc_list = 1
+      let g:syntastic_mode_map = { 'passive_filetypes': ['tex'] }
     " }}}
 
     " Pandoc {{{
