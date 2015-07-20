@@ -88,6 +88,8 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
     " Some useful additions for LaTex editing
     Plug 'lervag/vimtex'
+
+    Plug 'rust-lang/rust.vim'
   endif
   call plug#end()
 " }}}
@@ -134,12 +136,14 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
     " show tabs, trailing spaces, non-breaking spaces and line wraps
     set list
-    set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+    set listchars=tab:›\ ,trail:•,precedes:…,extends:…,nbsp:.
 
     if has("gui_running")
       if has('macunix')
-        set guifont=Menlo:h13
-        set linespace=1 " same as terminal/sublime
+          " TODO maybe put this in a platform specific file?
+          set guifont=Source\ Code\ Pro:h13
+          " set guifont=Menlo:h13
+          " set linespace=1 " same as terminal/sublime
       endif
 
       set guioptions-=T " disable tab bar
