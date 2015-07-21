@@ -46,9 +46,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
 
   if g:isCompleteInstall == 1
-    " show git diff in the number column
-    Plug 'airblade/vim-gitgutter'
-
     " deps: compiled component
     Plug 'Valloric/YouCompleteMe', {'do': './install.sh --clang-completer'}
 
@@ -354,10 +351,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
       let g:pandoc#folding#fdc=0
       let g:pandoc#spell#enabled=0
       let g:pandoc#modules#disabled = ["chdir"]
-    " }}}
-
-    " GitGutter {{{
-      let g:gitgutter_enabled = 0
     " }}}
 
     " UltiSnips {{{
