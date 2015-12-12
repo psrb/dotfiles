@@ -123,7 +123,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   " Editor {{{
     syntax on
     set background=dark
-    colorscheme base16-flat
+    colorscheme base16-ocean
 
     set number " line numbers
     set ruler " position  of cursor
@@ -136,7 +136,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
     if has("gui_running")
       if has('macunix')
-          " TODO maybe put this in a platform specific file?
           set guifont=Source\ Code\ Pro:h13
           " set guifont=Menlo:h13
           " set linespace=1 " same as terminal/sublime
@@ -198,7 +197,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   function! s:toggleLightColorscheme()
     if &background ==? "light"
       set background=dark
-      colorscheme base16-flat
+      colorscheme base16-ocean
     else
       set background=light
       colorscheme base16-solarized
