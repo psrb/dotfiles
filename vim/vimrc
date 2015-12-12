@@ -13,6 +13,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   call plug#begin('~/.vim/plugged')
   Plug 'chriskempson/base16-vim'
   Plug 'bling/vim-airline'
+
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
@@ -69,9 +70,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     Plug 'marijnh/tern_for_vim', {'do': 'npm install',
           \ 'for': ['javascript', 'html']}
 
-    " glsl shader language syntax definitions
-    Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
-
     " essential for markdown editing. external deps: pandoc
     Plug 'vim-pandoc/vim-pandoc'
     Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -86,7 +84,8 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     " Some useful additions for LaTex editing
     Plug 'lervag/vimtex'
 
-    Plug 'rust-lang/rust.vim'
+    " Swift syntax and indent files
+    Plug 'keith/swift.vim'
   endif
   call plug#end()
 " }}}
