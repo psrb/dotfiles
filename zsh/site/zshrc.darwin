@@ -1,7 +1,6 @@
 
 hash -d Notes=~/Dropbox/notes
 hash -d Projects=~/Projects
-hash -d Semester=~/Dropbox/Studium/Master/Semester\ 2
 
 # Brew
 alias brewup="brew update"

@@ -13,6 +13,7 @@ alias ga="git add"
 alias gc="git commit"
 alias gd="git diff"
 alias gdt="git difftool"
+alias gll="git log --pretty=\"%C(auto)%h %Cred%s%Creset by %an (%cr)\"" # online: Hash Subject by Author (relative date)
 
 # Cmake
 alias cmake_debug="cmake -DCMAKE_BUILD_TYPE=Debug"
