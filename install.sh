@@ -78,6 +78,7 @@ create_link $SCRIPT_DIR/tmux.conf ~/.tmux.conf
 create_link $SCRIPT_DIR/vim ~/.vim
 create_link $SCRIPT_DIR/vim/vimrc ~/.vimrc
 create_link $SCRIPT_DIR/zsh ~/.zsh
+create_link $SCRIPT_DIR/zsh/zprofile ~/.zprofile
 create_link $SCRIPT_DIR/zsh/zshenv ~/.zshenv
 create_link $SCRIPT_DIR/zsh/zshrc ~/.zshrc
 echo

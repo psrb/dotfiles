@@ -3,6 +3,8 @@
 # Description:
 #   zshenv: Environment variables
 #   zshenv.local: Local additions to environment variables
+#   zprofile:
+#   zprofile.local: Local path additions
 #   zshrc: Main configuration
 #   zsh/completion/: Completion files
 #   zsh/modules/: Additional functions/aliases/hashes
