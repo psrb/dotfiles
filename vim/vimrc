@@ -48,13 +48,13 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
   if g:isCompleteInstall == 1
     " deps: compiled component
-    Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --gocode-completer'}
+    Plug 'Valloric/YouCompleteMe', {'do': './install.py
+                \ --clang-completer
+                \ --tern-completer
+                \ --gocode-completer'}
 
     " syntax checking
     Plug 'scrooloose/syntastic'
-
-    " switch between header/sources files
-    Plug 'derekwyatt/vim-fswitch', {'for': ['c', 'cpp']}
 
     " external deps: clang format
     Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
@@ -64,11 +64,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
     " external deps: ctags
     Plug 'majutsushi/tagbar'
-
-    " autocomplete for javascript
-    " external deps: nodejs + extra npm install
-    Plug 'marijnh/tern_for_vim', {'do': 'npm install',
-          \ 'for': ['javascript', 'html']}
 
     " essential for markdown editing. external deps: pandoc
     Plug 'vim-pandoc/vim-pandoc'
