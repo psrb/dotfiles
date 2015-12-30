@@ -136,6 +136,11 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
           " set linespace=1 " same as terminal/sublime
       endif
 
+      if has("gui_macvim")
+        " Make without automatic jump, open quickfix if error present.
+        an 40.360 &Tools.&Make<Tab>:make :make!<CR>:cw<CR>
+      endif
+
       set guioptions-=T " disable tab bar
       set guioptions-=m " disable menu
       set guioptions-=r " disable right scroll bar
