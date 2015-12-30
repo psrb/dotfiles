@@ -80,7 +80,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     Plug 'lervag/vimtex'
 
     " Swift syntax and indent files
-    Plug 'keith/swift.vim'
+    Plug 'kballard/vim-swift'
   endif
   call plug#end()
 " }}}
@@ -341,7 +341,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
     " Syntastic {{{
       let g:syntastic_always_populate_loc_list = 1
-      let g:syntastic_mode_map = { 'passive_filetypes': ['tex'] }
+      let g:syntastic_mode_map = { 'passive_filetypes': ['tex', 'swift'] }
     " }}}
 
     " Pandoc {{{
