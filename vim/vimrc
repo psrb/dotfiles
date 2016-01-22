@@ -14,7 +14,6 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   Plug 'chriskempson/base16-vim'
   Plug 'bling/vim-airline'
 
-  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
 
@@ -298,25 +297,14 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     " let g:airline#extensions#tabline#left_alt_sep = '|'
   " }}}
 
-  " Fswitch {{{
-    nnoremap <Leader>h :FSHere<CR>
-    let g:fsnonewfiles = ''
-  " }}}
-
-    " Session {{{
+  " Session {{{
     let g:session_autosave = "yes"
     let g:session_autoload = "no"
     let g:session_command_aliases = 1
-    " }}}
+  " }}}
 
   " Bufkill {{{
     nnoremap <silent> <Leader>bd :BD<CR>
-  " }}}
-
-  " CTRLP {{{
-    " ctrlp on the top of the window instead on of the bottom
-    let g:ctrlp_match_window_bottom   = 0
-    let g:ctrlp_match_window_reversed = 0
   " }}}
 
   if g:isCompleteInstall == 1
