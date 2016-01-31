@@ -13,6 +13,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   call plug#begin('~/.vim/plugged')
   Plug 'chriskempson/base16-vim'
   Plug 'bling/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
