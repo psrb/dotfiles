@@ -354,6 +354,10 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
         \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
       let g:vimtex_view_general_options = '@line @pdf @tex'
     " }}}
+
+    " swift {{{
+      let g:swift_no_conceal=1
+    " }}}
   endif
 " }}}
 
