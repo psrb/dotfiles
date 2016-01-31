@@ -47,11 +47,19 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
 
   if g:isCompleteInstall == 1
-    " deps: compiled component
-    Plug 'Valloric/YouCompleteMe', {'do': './install.py
-                \ --clang-completer
-                \ --tern-completer
-                \ --gocode-completer'}
+    " Only rebuild YCM if necessary
+    " From https://github.com/junegunn/vim-plug#post-update-hooks
+    function! BuildYCM(info)
+      " info is a dictionary with 3 fields
+      " - name:   name of the plugin
+      " - status: 'installed', 'updated', or 'unchanged'
+      " - force:  set on PlugInstall! or PlugUpdate!
+      if a:info.status == 'installed' || a:info.force
+        !./install.py --clang-completer --tern-completer --gocode-completer
+      endif
+    endfunction
+
+    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
     " syntax checking
     Plug 'scrooloose/syntastic'
