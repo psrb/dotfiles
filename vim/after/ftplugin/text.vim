@@ -1,4 +1,7 @@
+" Common settings for text files (Markdown, LaTeX, ...)
+
 setlocal spell
+setlocal nocindent " prevent indentation after (), {, ...
 
 " quicker umlauts than <C-k> o:
 " <C-s>: s for special
@@ -15,3 +18,4 @@ inoremap <buffer> <C-s>U Ü
 " insert mode
 inoremap <buffer> <Space> <Space><C-g>u
 inoremap <buffer> <CR> <CR><C-g>u
+
