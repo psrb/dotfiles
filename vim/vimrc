@@ -12,6 +12,9 @@ scriptencoding utf-8
   Plug 'bling/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
+  " Fuzzy file finding
+  Plug 'ctrlpvim/ctrlp.vim'
+
   Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
               \'NERDTreeToggle']}
 
@@ -86,6 +89,9 @@ scriptencoding utf-8
 
     " Swift syntax and indent files
     Plug 'kballard/vim-swift'
+
+    " Plugin for ag (the_silver_searcher)
+    Plug 'rking/ag.vim'
   endif
   call plug#end()
 " }}}
@@ -313,6 +319,19 @@ scriptencoding utf-8
     nnoremap <silent> <Leader>bd :BD<CR>
   " }}}
 
+  " CTRLP {{{
+    " Include current file in search results. Otherwise I wonder where that
+    " file went...
+    let g:ctrlp_match_current_file = 1
+
+    " Use ag if available
+    if executable('ag')
+      " Always use cwd as CtrlPs working directory
+      let g:ctrlp_working_path_mode = 0
+      let g:ctrlp_user_command = 'ag %s -l --nocolor --nogroup --hidden -g ""'
+    endif
+  " }}}
+
   if g:installType#isCompleteInstall == 1
     " YouCompleteMe {{{
       let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
@@ -363,6 +382,10 @@ scriptencoding utf-8
 
     " swift {{{
       let g:swift_no_conceal=1
+    " }}}
+
+    " Ag {{{
+      command! Todos :Ag \(FIXME\|TODO\)
     " }}}
   endif
 " }}}
