@@ -20,7 +20,7 @@ check_installed() {
 
 # Create a link named $2 to file $1.
 # Overwrites existing links.
-# Overwrites all other files only on user confirmatio
+# Overwrites all other files only on user confirmation
 create_link() {
     file=$1
     link_name=$2
@@ -93,12 +93,12 @@ echo
 
 printf "Installing Vim plugins\n"
 
-vim_install_type=vim/install_type.vim
-if [ ! -e  $vim_install_type ]; then
+vim_install_type_path=vim/autoload/installType.vim
+if [ ! -e  $vim_install_type_path ]; then
     if ask " Install all vim plugins?"; then
-        echo "let g:isCompleteInstall = 1" > $vim_install_type
+        echo "let g:installType#isCompleteInstall = 1" > $vim_install_type_path
     else
-        echo "let g:isCompleteInstall = 0" > $vim_install_type
+        echo "let g:installType#isCompleteInstall = 0" > $vim_install_type_path
     fi
 fi
 vim +PlugInstall +sleep4 +qa

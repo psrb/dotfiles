@@ -2,7 +2,6 @@
 .DS_Store
 vim/.netrwhist
 vim/autoload
-vim/install_type.vim
 vim/plugged
 vim/sessions
 vim/spell

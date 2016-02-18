@@ -1,13 +1,10 @@
 " vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker
 scriptencoding utf-8
 
-" This variable controls which plugins get installed, either all plugins or a
+" Configurable through the constant g:installType#isCompleteInstall in
+" vim/autoload/installType.vim.
+" The constant controls which plugins are installed, either all plugins or a
 " smaller subset which are not necessary on some machines (e.g. servers).
-" If g:isCompleteInstall == 1 all plugins will be installed, otherwise just the
-" subset.
-" The variable can be overriden in ./vim/site/install_type.vim.
-let g:isCompleteInstall = 1
-try | source ~/.vim/install_type.vim | catch /E484/ | endtry
 
 " Plug setup {{{
   call plug#begin('~/.vim/plugged')
@@ -46,7 +43,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
   " improved syntax highlighting for javascript
   Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
 
-  if g:isCompleteInstall == 1
+  if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
     function! BuildYCM(info)
@@ -316,7 +313,7 @@ try | source ~/.vim/install_type.vim | catch /E484/ | endtry
     nnoremap <silent> <Leader>bd :BD<CR>
   " }}}
 
-  if g:isCompleteInstall == 1
+  if g:installType#isCompleteInstall == 1
     " YouCompleteMe {{{
       let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
       let g:ycm_autoclose_preview_window_after_insertion = 1
