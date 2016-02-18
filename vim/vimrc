@@ -1,5 +1,4 @@
 " vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker
-scriptencoding utf-8
 
 " Configurable through the constant g:installType#isCompleteInstall in
 " vim/autoload/installType.vim.
@@ -44,7 +43,7 @@ scriptencoding utf-8
   Plug 'vim-scripts/bufkill.vim'
 
   " improved syntax highlighting for javascript
-  Plug 'pangloss/vim-javascript', {'for': ['javascript', 'html']}
+  Plug 'pangloss/vim-javascript'
 
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
@@ -84,7 +83,7 @@ scriptencoding utf-8
     " community.
     Plug 'honza/vim-snippets'
 
-    " Some useful additions for LaTex editing
+    " Some useful additions for LaTeX editing
     Plug 'lervag/vimtex'
 
     " Swift syntax and indent files
@@ -97,7 +96,6 @@ scriptencoding utf-8
 " }}}
 
 " General {{{
-  set encoding=UTF8
 
   " disable the visual/error bells
   set noerrorbells
@@ -122,44 +120,49 @@ scriptencoding utf-8
   set splitbelow " new horizontal splits always below
   set laststatus=2 "always show the status line
 
-  " better commandline completion
+  " better command line completion
   set wildmenu
   set wildmode=list:longest,full
+" }}}
 
-  " Editor {{{
-    syntax on
-    set background=dark
-    colorscheme base16-ocean
+" Editor {{{
+  syntax on
+  set background=dark
+  colorscheme base16-ocean
 
-    set number " line numbers
-    set ruler " position  of cursor
-    set colorcolumn=+1 " highlight one column after textwidth
-    set cursorline " highlight the line of the cursor
+  set number " line numbers
+  set ruler " position  of cursor
+  set colorcolumn=+1 " highlight one column after text width
+  set cursorline " highlight the line of the cursor
 
-    " show tabs, trailing spaces, non-breaking spaces and line wraps
-    set list
-    set listchars=tab:›\ ,trail:•,precedes:…,extends:…,nbsp:.
+  " show tabs, trailing spaces, non-breaking spaces and line wraps
+  set list
+  set listchars=tab:›\ ,trail:•,precedes:…,extends:…,nbsp:.
 
-    if has("gui_running")
-      if has('macunix')
-          set guifont=Source\ Code\ Pro:h13
-          " set guifont=Menlo:h13
-          " set linespace=1 " same as terminal/sublime
-      endif
+  " Text format options. ':help fo-table' for detailed information
+  " Text can be formatted with 'gq{motion}'.
+  set formatoptions=tcroqwnj
 
-      if has("gui_macvim")
-        " Make without automatic jump, open quickfix if error present.
-        an 40.360 &Tools.&Make<Tab>:make :make!<CR>:cw<CR>
-      endif
+  " Use system clipboard
+  set clipboard+=unnamed
 
-      set guioptions-=T " disable tab bar
-      set guioptions-=m " disable menu
-      set guioptions-=r " disable right scroll bar
-      set guioptions-=R " disable right scroll bar
-      set guioptions-=l " disable left scroll bar
-      set guioptions-=L " disable left scroll bar
+  if has("gui_running")
+    if has('macunix')
+        set guifont=Source\ Code\ Pro:h13
     endif
-  " }}}
+
+    if has("gui_macvim")
+      " Make without automatic jump, open quickfix if error present.
+      an 40.360 &Tools.&Make<Tab>:make :make!<CR>:cw<CR>
+    endif
+
+    set guioptions-=T " disable tab bar
+    set guioptions-=m " disable menu
+    set guioptions-=r " disable right scroll bar
+    set guioptions-=R " disable right scroll bar
+    set guioptions-=l " disable left scroll bar
+    set guioptions-=L " disable left scroll bar
+  endif
 " }}}
 
 " File Handling {{{
@@ -196,16 +199,8 @@ scriptencoding utf-8
     echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
   endfunc
 
-  " Open a new MacVim instance in my notes directory
-  function! s:openNotes()
-    if has('macunix')
-      call system("mvim +cd~/Dropbox/Notes")
-    endif
-  endfunction
-  command! OpenNotes :call s:openNotes()
-
-  " Switch between dark and light colorschemes
-  function! s:toggleLightColorscheme()
+ " Switch between dark and light color schemes
+  function! s:toggleLightColorScheme()
     if &background ==? "light"
       set background=dark
       colorscheme base16-ocean
@@ -214,7 +209,7 @@ scriptencoding utf-8
       colorscheme base16-solarized
     endif
   endfunc
-  command! ToggleLightColorscheme :call s:toggleLightColorscheme()
+  command! ToggleLightColorScheme :call s:toggleLightColorScheme()
 
 " }}}
 
@@ -239,7 +234,7 @@ scriptencoding utf-8
   nnoremap <C-f> <C-f>zz
 
   " making saving easier
-  nnoremap <Leader>w :w<cr>
+  nnoremap <silent> <Leader>w :<C-u>update<cr>
 
   " 'sudo save'
   cnoremap w!! w !sudo tee % >/dev/null
@@ -301,12 +296,6 @@ scriptencoding utf-8
 
     " Source Code Pro has the powerline symbols
     let g:airline_powerline_fonts = 1
-
-    " don't have powerline fonts
-    " let g:airline_left_sep = ' '
-    " let g:airline_right_sep = ' '
-    " let g:airline#extensions#tabline#left_sep = ' '
-    " let g:airline#extensions#tabline#left_alt_sep = '|'
   " }}}
 
   " Session {{{
@@ -349,7 +338,7 @@ scriptencoding utf-8
     " }}}
 
     " Tagbar {{{
-      map <silent> <Leader>t :TagbarOpenAutoClose<cr>
+      map <silent> <Leader>t :TagbarToggle<cr>
     " }}}
 
     " Syntastic {{{
