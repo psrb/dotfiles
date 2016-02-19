@@ -141,7 +141,10 @@
 
   " Text format options. ':help fo-table' for detailed information
   " Text can be formatted with 'gq{motion}'.
-  set formatoptions=tcroqwnj
+  set formatoptions=tcroqnj
+  " Formatting options lists. Vims default only formats ordered lists.
+  " This adds unordered list beginning with *,-,+.
+  set formatlistpat=^\\s*\\(\\d\\+[\\]:.)}\\t\ ]\\\|[*\\-\\+]\ \\)\\s*
 
   " Use system clipboard
   set clipboard+=unnamed
