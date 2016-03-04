@@ -113,6 +113,9 @@
   " persistent undo
   set undofile
   set undodir=$HOME/.vimundo
+
+  " Enable mouse in all modes
+  set mouse=a
 " }}}
 
 " UI {{{
@@ -126,6 +129,9 @@
   " better command line completion
   set wildmenu
   set wildmode=list:longest,full
+
+  " Faster macro (and others) execution. Don't redraw on every macro execution
+  set lazyredraw
 " }}}
 
 " Editor {{{
@@ -152,9 +158,12 @@
   " Use system clipboard
   set clipboard+=unnamed
 
+  " Number of lines to keep above/below the cursor
+  set scrolloff=5
+
   if has("gui_running")
     if has('macunix')
-        set guifont=Source\ Code\ Pro:h13
+        set guifont=Source\ Code\ Pro\ Medium:h13
     endif
 
     if has("gui_macvim")
@@ -262,6 +271,9 @@
 
   " reload vimrc
   nnoremap <F2> :source $MYVIMRC<cr>:echom "vimrc reloaded"<cr>
+
+  " Change to file directory
+  nnoremap <leader>cd :cd %:p:h<cr>
 
 " }}}
 
