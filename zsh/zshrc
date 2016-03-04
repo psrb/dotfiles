@@ -168,19 +168,8 @@ if [[ "$TERM" == *xterm* ]] || [[ "$TERM" == rxvt* ]]; then
         # http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
         print -Pn "\e]2;$window_title\a" # Window title
         print -Pn "\e]1;\a" # Clears the title of a tab of
-
     }
     precmd_functions+=(title_precmd)
-
-    # Sets the title before executing a command.
-    # Useful for displaying long running commands (vim, ...).
-    # Obviously short commands like 'cd' etc. will also be displayed, which is probaly
-    # not desired. The easiest way to not pollute the title with these useless short
-    # commands is to clear the tab title on every precmd.
-    function title_preexec {
-        print -Pn "\e]1;$1\a" # tab title
-    }
-    preexec_functions+=(title_preexec)
 fi
 
 # }}}
