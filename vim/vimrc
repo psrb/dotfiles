@@ -31,6 +31,9 @@
   " git plugin
   Plug 'tpope/vim-fugitive'
 
+  " Show git changes in the gutter (left of line numbers)
+  Plug 'airblade/vim-gitgutter', {'on': ['GitGutterToggle']}
+
   " dependency for vim-session
   Plug 'xolox/vim-misc'
   " Nice session management
@@ -299,6 +302,13 @@
 
     " Source Code Pro has the powerline symbols
     let g:airline_powerline_fonts = 1
+  " }}}
+
+  " GitGutter {{{
+    " I don't want to always see git changes, only on demand.
+    let g:gitgutter_enabled = 0
+
+    nnoremap <leader>g :GitGutterToggle<CR>
   " }}}
 
   " Session {{{
