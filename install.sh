@@ -82,6 +82,11 @@ create_link "$SCRIPT_DIR/zsh" ~/.zsh
 create_link "$SCRIPT_DIR/zsh/zprofile" ~/.zprofile
 create_link "$SCRIPT_DIR/zsh/zshenv" ~/.zshenv
 create_link "$SCRIPT_DIR/zsh/zshrc" ~/.zshrc
+
+if [ "$(uname)" = "Darwin" ]
+then
+    create_link "$SCRIPT_DIR/hammerspoon" ~/.hammerspoon
+fi
 echo
 
 echo "Creating folders"
