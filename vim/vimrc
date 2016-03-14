@@ -48,6 +48,8 @@
   " improved syntax highlighting for javascript
   Plug 'pangloss/vim-javascript'
 
+  Plug 'tmux-plugins/vim-tmux'
+
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
@@ -99,6 +101,9 @@
 " }}}
 
 " General {{{
+
+  let mapleader=" "
+  let maplocalleader="\\"
 
   " disable the visual/error bells
   set noerrorbells
