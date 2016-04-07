@@ -299,6 +299,8 @@
   " }}}
 
   " Airline {{{
+    let g:airline_theme="base16"
+
     " show current branch in status line (req. Fugitive)
     let g:airline#extensions#branch#enabled = 1
 
