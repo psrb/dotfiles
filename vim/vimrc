@@ -165,7 +165,8 @@
 
   if has("gui_running")
     if has('macunix')
-        set guifont=Source\ Code\ Pro\ Medium:h13
+        " set guifont=Source\ Code\ Pro\ Medium:h14
+        set guifont=Fira\ Mono:h14
     endif
 
     if has("gui_macvim")
