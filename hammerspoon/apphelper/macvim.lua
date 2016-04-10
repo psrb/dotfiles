@@ -106,7 +106,6 @@ end
 local vimOpenChooser = nil
 
 local function chooseComplete(choice)
-  print(hs.inspect(choice))
   if choice["type"] == "Finder" then
     terminal.doScript(string.format(
       [[cd \"%s\" && mvim +\"silent ruby p ''\" && sleep 2 && exit]],
