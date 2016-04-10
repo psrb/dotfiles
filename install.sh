@@ -48,18 +48,19 @@ create_link() {
 download_plug_vim() {
     file_path=$1
 
-    printf "Downloading plug.vim ...\t"
+    echo "Downloading plug.vim"
+    printf " "
     if [ -e "$file_path" ]; then
-        echo "already downloaded!"
+        echo "Already downloaded!"
         return
     fi
 
     if curl -sfLo "$file_path" --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
     then
-        echo "downloaded!"
+        echo "Downloaded!"
     else
-        echo "failed!"
+        echo "Failed!"
         exit 1
     fi
 }
@@ -108,7 +109,7 @@ echo
 download_plug_vim "$SCRIPT_DIR/vim/autoload/plug.vim"
 echo
 
-printf "Installing Vim plugins\n"
+echo "Installing Vim plugins"
 
 vim_install_type_path=vim/autoload/installType.vim
 if [ ! -e  $vim_install_type_path ]; then
@@ -119,6 +120,7 @@ if [ ! -e  $vim_install_type_path ]; then
     fi
 fi
 vim +PlugInstall +sleep4 +qa
+echo " Done!"
 echo
 
 echo "Finished!"
