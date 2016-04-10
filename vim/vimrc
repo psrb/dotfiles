@@ -45,9 +45,6 @@
   " sane buffer closing
   Plug 'vim-scripts/bufkill.vim'
 
-  " improved syntax highlighting for javascript
-  Plug 'pangloss/vim-javascript'
-
   Plug 'tmux-plugins/vim-tmux'
 
   if g:installType#isCompleteInstall == 1
@@ -59,7 +56,7 @@
       " - status: 'installed', 'updated', or 'unchanged'
       " - force:  set on PlugInstall! or PlugUpdate!
       if a:info.status == 'installed' || a:info.force
-        !./install.py --clang-completer --tern-completer --gocode-completer
+        !./install.py --clang-completer --gocode-completer
       endif
     endfunction
 
