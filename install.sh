@@ -69,6 +69,7 @@ download_plug_vim() {
 echo "Checking installs"
 check_installed vim
 check_installed zsh
+check_installed git
 echo
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" || exit 1; pwd)
@@ -91,6 +92,17 @@ echo
 echo "Creating folders"
 echo " Folder: ~/.vimundo"
 [ ! -d ~/.vimundo ] && mkdir ~/.vimundo
+echo
+
+echo "Installing ZSH completions"
+
+if [ ! -d "$SCRIPT_DIR/zsh/completion/zsh-completions" ]
+then
+    git clone https://github.com/zsh-users/zsh-completions \
+        "$SCRIPT_DIR/zsh/completion/zsh-completions"
+else
+    echo " Already cloned!"
+fi
 echo
 
 download_plug_vim "$SCRIPT_DIR/vim/autoload/plug.vim"
