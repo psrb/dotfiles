@@ -27,7 +27,7 @@ bind(mash, "B", toggleScreenBlackout)
 --------------------------------------------------------------------------------
 
 --- Move a windows position
---- Uses the resting position of the left hand as a grid.
+--- Uses the resting position of the right hand as a grid.
 ---
 ---  U I O
 --- H J K L

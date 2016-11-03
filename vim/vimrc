@@ -56,7 +56,7 @@
       " - status: 'installed', 'updated', or 'unchanged'
       " - force:  set on PlugInstall! or PlugUpdate!
       if a:info.status == 'installed' || a:info.force
-        !./install.py --clang-completer --gocode-completer
+        !./install.py --clang-completer --gocode-completer --racer-completer
       endif
     endfunction
 
@@ -93,6 +93,8 @@
 
     " Plugin for ag (the_silver_searcher)
     Plug 'rking/ag.vim'
+
+    Plug 'rust-lang/rust.vim'
   endif
   call plug#end()
 " }}}
@@ -284,7 +286,7 @@
 
   " DelimitMate {{{
     " exclude `
-    let delimitMate_quotes = "\" '"
+    let g:delimitMate_quotes = "\" '"
     " put closing bracket on seperate line after enter
     let g:delimitMate_expand_cr = 1
   " }}}
@@ -357,6 +359,7 @@
     " YouCompleteMe {{{
       let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
       let g:ycm_autoclose_preview_window_after_insertion = 1
+      let g:ycm_rust_src_path = $RUST_SRC_PATH
 
       nnoremap <silent> <Leader>yg :YcmCompleter GoTo<CR>
       nnoremap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
