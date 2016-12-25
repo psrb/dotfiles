@@ -2,13 +2,15 @@
 --- * Creating new windows
 --- * Load sessions or open file/directory of frontmost app
 
+require "utility/applescript"
+
 local fn = hs.fnutils
-local terminal = require "appHelper/terminal"
+local iterm = require "appHelper/iterm"
 
 local macvim = {}
 
 function macvim.launchOrNewWindow()
-  terminal.doScript([[mvim +\"silent ruby p ''\" && sleep 2 && exit]])
+  iterm.doCommand([[mvim +\"silent ruby p ''\" && sleep 2 && exit]])
 end
 
 --------------------------------------------------------------------------------
@@ -19,11 +21,15 @@ local function frontmostAppCandidate()
   local appName = hs.application.frontmostApplication():name()
 
   if appName == "Finder" then
-    local _, path = hs.applescript([[
+    local path = executeAppleScript([[
       tell application "Finder"
         POSIX path of (folder of first window as text)
       end tell
     ]])
+
+    if not path then
+      return nil
+    end
 
     return {
       ["text"] = "Finder",
@@ -107,7 +113,7 @@ local vimOpenChooser = nil
 
 local function chooseComplete(choice)
   if choice["type"] == "Finder" then
-    terminal.doScript(string.format(
+    iterm.doCommand(string.format(
       [[cd \"%s\" && mvim +\"silent ruby p ''\" && sleep 2 && exit]],
       choice["path"]))
 
@@ -119,7 +125,7 @@ local function chooseComplete(choice)
     end
 
   elseif choice["type"] == "Vim Session" then
-    terminal.doScript(string.format(
+    iterm.doCommand(string.format(
       [[mvim +\"silent ruby p ''\" +\"OpenSession %s\" && sleep 2 && exit]],
       choice["session"]))
   end

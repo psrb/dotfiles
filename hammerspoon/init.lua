@@ -2,7 +2,7 @@ require "caffeine"
 require "windowHandling"
 require "utility/blackout"
 
-local terminal = require "appHelper/terminal"
+local iterm = require "appHelper/iterm"
 local macvim = require "appHelper/macvim"
 
 local bind = hs.hotkey.bind
@@ -74,9 +74,9 @@ bind(mash, "Y", hs.hints.windowHints)
 --------------------------------------------------------------------------------
 
 --- Create a new Terminal window
-bind(mash, "T", terminal.launchOrNewWindow)
+bind(mash, "T", iterm.launchOrNewWindow)
 --- Create a new Terminal window in working directory of frontmost app
-bind(hyper, "T", terminal.newWindowForFrontmostApp)
+bind(hyper, "T", iterm.newWindowForFrontmostApp)
 
 --- Create a new MacVim window
 bind(mash, "V", macvim.launchOrNewWindow)
