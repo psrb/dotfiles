@@ -15,13 +15,11 @@ alias gd="git diff"
 alias gdt="git difftool"
 alias gll="git log --pretty=\"%C(auto)%h %Cred%s%Creset by %an (%cr)\"" # online: Hash Subject by Author (relative date)
 
-# Cmake
-alias cmake_debug="cmake -DCMAKE_BUILD_TYPE=Debug"
-alias cmake_release="cmake -DCMAKE_BUILD_TYPE=Release"
-
 # Tmux
 alias tmuxa="tmux attach"
 alias tmuxls="tmux list-sessions"
 alias tmuxksv="tmux kill-server"
 alias tmuxkss="tmux kill-session"
+
+alias bell="echo -en '\a'"
 
