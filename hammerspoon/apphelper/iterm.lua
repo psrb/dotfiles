@@ -7,7 +7,8 @@ local iterm = {}
 function iterm.newWindow()
   executeAppleScript([[
       tell application "iTerm"
-        create window with default profile
+        set newWindow to create window with default profile
+        select newWindow
       end tell
   ]], "Create new iTerm window")
 end
@@ -15,8 +16,9 @@ end
 function iterm.doCommand(cmd)
   as = string.format([[
       tell application "iterm"
-        create window with default profile
-        write current session of current window text "%s"
+        set newWindow to create window with default profile
+        select newWindow
+        write current session of newWindow text "%s"
       end tell
     ]], cmd)
 
