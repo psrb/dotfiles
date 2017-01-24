@@ -120,7 +120,6 @@
 
   set splitright " new vertical splits always to the right
   set splitbelow " new horizontal splits always below
-  set laststatus=2 "always show the status line
 
   " better command line completion
   set wildmenu
@@ -128,6 +127,38 @@
 
   " Faster macro (and others) execution. Don't redraw on every macro execution
   set lazyredraw
+
+  " Status Line {{{
+    set laststatus=2 "always show the status line
+
+    " Return an empty string if no branch name was found (no git repo) or the
+    " branch name surrounded with [].
+    function! GitStatus()
+      let name = fugitive#head(7)
+      if !empty(name)
+        return "[".name."]"
+      endif
+      return ""
+    endfunc
+
+    " left side of status line
+    set statusline=
+    set statusline+=\ %n " buffer number
+    set statusline+=\ %f " filename
+    set statusline+=\ %m " modified flag
+    set statusline+=%r " read only flag
+    set statusline+=%w " preview flag
+    set statusline+=%q " quickfix/location list flag
+    set statusline+=%< " truncate
+    set statusline+=%{GitStatus()} " git status
+    set statusline+=%= " separation point between left/right aligned items
+    " right side of status line
+    set statusline+=%y " file type flag
+    set statusline+=%{\"[\".(&fenc==\"\"?&enc:&fenc).\",\".(&fileformat).\"]\"} " file encoding and format
+    set statusline+=\ %3l/%-3L  " line numbers
+    set statusline+=\ %3c\ " column number
+
+  " }}}
 " }}}
 
 " Editor {{{
@@ -136,7 +167,7 @@
   colorscheme base16-ocean
 
   set number " line numbers
-  set ruler " position  of cursor
+  set relativenumber
   set colorcolumn=+1 " highlight one column after text width
   set cursorline " highlight the line of the cursor
 
