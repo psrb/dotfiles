@@ -1,4 +1,6 @@
-
+" exclude <
+let delimitMate_matchpairs = "(:),[:],{:}"
 " exclude '
 let b:delimitMate_quotes="\""
-setlocal makeprg=cargo
+compiler cargo
+noremap <buffer> <F5> :make! build<CR>

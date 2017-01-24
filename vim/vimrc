@@ -34,6 +34,9 @@
   " also better highlights for c
   Plug 'octol/vim-cpp-enhanced-highlight'
 
+  " Switch between header/implementation file
+  Plug 'derekwyatt/vim-fswitch', {'for': ['c', 'cpp']}
+
   " sane buffer closing
   Plug 'vim-scripts/bufkill.vim'
 
@@ -335,7 +338,8 @@
     if executable('ag')
       " Always use cwd as CtrlPs working directory
       let g:ctrlp_working_path_mode = 0
-      let g:ctrlp_user_command = 'ag %s -l --nocolor --nogroup --hidden -g ""'
+      let g:ctrlp_user_command = 'ag %s -l --nocolor --nogroup --hidden
+                  \ --ignore .git -g ""'
     endif
   " }}}
 
@@ -354,6 +358,7 @@
       let g:clang_format#auto_format = 0
       let g:clang_format#auto_format_on_insert_leave = 0
       let g:clang_format#detect_style_file = 1
+      let g:clang_format#code_style = 'webkit'
     " }}}
 
     " Tagbar {{{
@@ -363,6 +368,7 @@
     " Syntastic {{{
       let g:syntastic_always_populate_loc_list = 1
       let g:syntastic_mode_map = { 'passive_filetypes': ['tex', 'swift'] }
+      let g:syntastic_rust_checkers = ['rustc']
     " }}}
 
     " Pandoc {{{
