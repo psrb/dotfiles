@@ -8,14 +8,9 @@
 " Plug setup {{{
   call plug#begin('~/.vim/plugged')
   Plug 'chriskempson/base16-vim'
-  Plug 'bling/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
 
   " Fuzzy file finding
   Plug 'ctrlpvim/ctrlp.vim'
-
-  Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus',
-              \'NERDTreeToggle']}
 
   " autoclosing of brackets, quotes, etc.
   Plug 'Raimondi/delimitMate'
@@ -30,9 +25,6 @@
 
   " git plugin
   Plug 'tpope/vim-fugitive'
-
-  " Show git changes in the gutter (left of line numbers)
-  Plug 'airblade/vim-gitgutter', {'on': ['GitGutterToggle']}
 
   " dependency for vim-session
   Plug 'xolox/vim-misc'
@@ -74,7 +66,7 @@
     " external deps: ctags
     Plug 'majutsushi/tagbar'
 
-    " essential for markdown editing. external deps: pandoc
+    " markdown editing. external deps: pandoc
     Plug 'vim-pandoc/vim-pandoc'
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'godlygeek/tabular'
@@ -291,45 +283,6 @@
     let g:delimitMate_expand_cr = 1
   " }}}
 
-  " NerdTree {{{
-    let NERDTreeShowHidden = 1
-    let NERDTreeIgnore = ['^\.git$', '^\.DS_Store$', '\.pyc$']
-
-    noremap <silent> <Leader>o :NERDTreeToggle<CR>
-  " }}}
-
-  " Airline {{{
-    let g:airline_theme="base16"
-
-    " show current branch in status line (req. Fugitive)
-    let g:airline#extensions#branch#enabled = 1
-
-    " show buffers on the top of the window
-    let g:airline#extensions#tabline#enabled = 1
-
-    " quickly select open buffers (max 9)
-    let g:airline#extensions#tabline#buffer_idx_mode = 1
-    nmap <leader>1 <Plug>AirlineSelectTab1
-    nmap <leader>2 <Plug>AirlineSelectTab2
-    nmap <leader>3 <Plug>AirlineSelectTab3
-    nmap <leader>4 <Plug>AirlineSelectTab4
-    nmap <leader>5 <Plug>AirlineSelectTab5
-    nmap <leader>6 <Plug>AirlineSelectTab6
-    nmap <leader>7 <Plug>AirlineSelectTab7
-    nmap <leader>8 <Plug>AirlineSelectTab8
-    nmap <leader>9 <Plug>AirlineSelectTab9
-
-    " Source Code Pro has the powerline symbols
-    let g:airline_powerline_fonts = 1
-  " }}}
-
-  " GitGutter {{{
-    " I don't want to always see git changes, only on demand.
-    let g:gitgutter_enabled = 0
-
-    nnoremap <leader>g :GitGutterToggle<CR>
-  " }}}
-
   " Session {{{
     let g:session_autosave = "yes"
     let g:session_autoload = "no"
@@ -389,7 +342,6 @@
     " }}}
 
     " UltiSnips {{{
-      " TODO: Some other keybinding maybe?
       let g:UltiSnipsExpandTrigger="<c-l>"
       let g:UltiSnipsJumpForwardTrigger="<tab>"
       let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
