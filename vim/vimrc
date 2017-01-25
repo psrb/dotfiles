@@ -146,13 +146,11 @@
 
     " left side of status line
     set statusline=
-    set statusline+=\ %n " buffer number
-    set statusline+=\ %f " filename
+    set statusline+=%f " filename
     set statusline+=\ %m " modified flag
     set statusline+=%r " read only flag
     set statusline+=%w " preview flag
     set statusline+=%q " quickfix/location list flag
-    set statusline+=%< " truncate
     set statusline+=%{GitStatus()} " git status
     set statusline+=%= " separation point between left/right aligned items
     " right side of status line
