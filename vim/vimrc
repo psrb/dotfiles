@@ -42,6 +42,9 @@
 
   Plug 'tmux-plugins/vim-tmux'
 
+  " javascript syntax
+  Plug 'othree/yajs.vim'
+
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
@@ -137,9 +140,11 @@
     " Return an empty string if no branch name was found (no git repo) or the
     " branch name surrounded with [].
     function! GitStatus()
-      let name = fugitive#head(7)
-      if !empty(name)
-        return "[".name."]"
+      if exists('fugitive#head')
+        let name = fugitive#head(7)
+        if !empty(name)
+          return "[".name."]"
+        endif
       endif
       return ""
     endfunc
@@ -216,9 +221,9 @@
 " }}}
 
 " Indentation {{{
-  set shiftwidth=4
   set tabstop=4
-  set softtabstop=4  " let backspace know about space indentation
+  set shiftwidth=0 " use tabstop value
+  set softtabstop=-1  " use shiftwidth value
   set expandtab
   set backspace=indent,eol,start
   set autoindent
