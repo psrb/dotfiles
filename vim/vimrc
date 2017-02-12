@@ -173,7 +173,6 @@
   colorscheme base16-ocean
 
   set number " line numbers
-  set relativenumber
   set colorcolumn=+1 " highlight one column after text width
   set cursorline " highlight the line of the cursor
 
