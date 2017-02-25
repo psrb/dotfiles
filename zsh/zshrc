@@ -123,7 +123,9 @@ bindkey -M emacs "^[v" edit-command-line
 bindkey -M emacs "^R" history-incremental-pattern-search-backward
 bindkey -M emacs "^S" history-incremental-pattern-search-forward
 bindkey -M emacs "^[[3~" delete-char
-bindkey -M emacs "^[3;5~" delete-char
+
+bindkey -M emacs "\e\e[D" backward-word # alt - arrow left
+bindkey -M emacs "\e\e[C" forward-word # alt - arrow right
 
 # }}}
 
