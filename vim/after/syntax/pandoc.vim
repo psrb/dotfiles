@@ -6,7 +6,5 @@ hi! link pandocAtxStart pandocAtxHeader
 hi! link pandocDefinitionBlock String
 hi! link pndocDefinitionBlock String
 
-hi! link pandocListItem Identifier
 hi! link pandocListItemBullet Identifier
-hi! link pandocUListItem Identifier
 hi! link pandocUListItemBullet Identifier
