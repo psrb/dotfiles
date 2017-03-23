@@ -169,6 +169,7 @@
 
 " Editor {{{
   syntax on
+  set termguicolors
   set background=dark
   colorscheme base16-ocean
 
