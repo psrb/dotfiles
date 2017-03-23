@@ -2,13 +2,12 @@
 --- MenuBar item is only visible when active. A click on the item will disable
 --- caffeine. Enabling is done via hotkey.
 
-local settingsKey = "io.psrb.caffeine.isEnabled"
-local wasEnabled = hs.settings.get(settingsKey)
-local caffeineMenuItem = hs.menubar.new(hs.caffeinate.get("displayIdle"))
+local isEnabledKey = "io.psrb.caffeine.isEnabled"
+local caffeineMenuItem = hs.menubar.new()
 
 function toggleCaffeine()
   isEnabled = hs.caffeinate.toggle("displayIdle")
-  hs.settings.set(settingsKey, isEnabled)
+  hs.settings.set(isEnabledKey, isEnabled)
 
   if isEnabled then
     caffeineMenuItem:returnToMenuBar()
@@ -21,8 +20,9 @@ if caffeineMenuItem then
   caffeineMenuItem:setTitle("♨︎")
   caffeineMenuItem:setTooltip("Caffeinate")
   caffeineMenuItem:setClickCallback(toggleCaffeine)
+  caffeineMenuItem:removeFromMenuBar()
 
-  if wasEnabled then
+  if hs.settings.get(isEnabledKey) then
     toggleCaffeine()
   end
 end
