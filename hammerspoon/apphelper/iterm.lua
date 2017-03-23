@@ -30,7 +30,7 @@ function iterm.launchOrNewWindow()
   if itermApp then
     iterm.newWindow()
   else
-    hs.application.launchOrFocus("iTerm2")
+    hs.application.launchOrFocus("iTerm") -- iTerm2 doesn't work for some reason
   end
 end
 
