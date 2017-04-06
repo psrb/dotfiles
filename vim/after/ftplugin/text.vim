@@ -19,5 +19,6 @@ inoremap <buffer> <C-s>U Ü
 inoremap <buffer> <Space> <Space><C-g>u
 inoremap <buffer> <CR> <CR><C-g>u
 
-set formatoptions-=or " don't insert comment leader after o,O or <Enter>
+setlocal formatoptions-=o " don't insert comment leader after o,O
+setlocal formatoptions-=r " don't insert comment leader after <Enter>
 

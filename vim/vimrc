@@ -107,6 +107,11 @@
   " and enable visual bell, but clear the visual bell character
   set visualbell t_vb =
 
+  " support of italic font style through escape codes in terminal
+  " http://stackoverflow.com/a/30937851
+  let &t_ZH="\e[3m"
+  let &t_ZR="\e[23m"
+
   " folding
   set foldenable
   set foldlevelstart=99
