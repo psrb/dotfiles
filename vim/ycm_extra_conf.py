@@ -16,6 +16,7 @@
 
 import ycm_core
 import os
+import logging
 from subprocess import Popen, PIPE
 
 def getClangIncludePaths(lang):
@@ -41,21 +42,32 @@ def getClangIncludePaths(lang):
     return flags
 
 
-DEFAULT_FLAGS = [
-'-Wall',
-'-Wextra',
-'-Weverything',
-'-Wno-newline-eof',
-'-pedantic',
-'-DNDEBUG',
-'-isystem',
-'/usr/local/include',
+DEFAULT_FLAGS_COMMON = [
+    '-Wall',
+    '-Wextra',
+    '-pedantic',
+    '-DNDEBUG',
+    '-isystem',
+    '/usr/local/include',
 ]
 
-C_INCLUDES = getClangIncludePaths('c')
-CPP_INCLUDES = getClangIncludePaths('c++')
+DEFAULT_C_FLAGS = [
+    '-std=c99',
+    '-x', 'c',
+]
 
-DATABASE = None # the ycm_core database
+DEFAULT_CPP_FLAGS = [
+    '-std=c++14',
+    '-x', 'c++'
+]
+
+DEFAULT_C_INCLUDES = getClangIncludePaths('c')
+DEFAULT_CPP_INCLUDES = getClangIncludePaths('c++')
+
+SOURCE_EXTENSIONS = [
+    '.c',
+    '.cpp',
+]
 
 def isHeaderFile(filename):
     extension = os.path.splitext(filename)[1]
@@ -88,56 +100,56 @@ def discoverCompileCommandJSON(filename, cmake_dir):
 
 def getFlagsForHeaderFile(header_file, database):
     """
-    Tries to find the compile flags for the header file.
-    First searches for the corresponding source file (foo.h -> foo.c,
-    foo.hpp -> foo.cpp). If this fails searches for any source file in the same
-    directory and uses its flags.
+    Tries to find the compile flags for the header file.  First searches for the
+    corresponding source file. if this fails searches for any source file in the
+    same directory and uses its flags.
     """
-    source_ext = '.c' if isCFile(header_file) else '.cpp'
-    source_file = os.path.join(os.path.splitext(header_file)[1], source_ext)
-    if os.path.exists(source_file):
-        comp_info = database.GetCompilationInfoForFile(source_file)
-        return list(comp_info.compiler_flags_)
-    else:
-        directory = os.path.split(header_file)[0]
-        for f in os.listdir(directory):
+
+    logging.info("Searching for source file corresponding to header file %s",
+            header_file)
+    for source_ext in SOURCE_EXTENSIONS:
+        source_file = os.path.splitext(header_file)[0] + source_ext
+        if os.path.exists(source_file):
+            logging.info("Found source file in same directory: %s", source_file)
+            comp_info = database.GetCompilationInfoForFile(source_file)
+            return list(comp_info.compiler_flags_)
+
+
+    logging.info("Did not find corresponding source file. Searching for any other source file in same directory.")
+    directory = os.path.split(header_file)[0]
+    for f in os.listdir(directory):
+        for source_ext in SOURCE_EXTENSIONS:
             if f.endswith(source_ext):
+                logging.info("Found alternative source file: %s", source_file)
                 path = os.path.join(directory, f)
                 comp_info = database.GetCompilationInfoForFile(path)
                 return list(comp_info.compiler_flags_)
-    raise Exception("Found no flags for this file")
+
+    # TODO fallback
+    raise Exception("Could not find flags for " + header_file)
 
 def FlagsForFile(filename, **kwargs):
     flags = []
+
     comp_commands = discoverCompileCommandJSON(filename, 'build')
     if comp_commands:
-        if not DATABASE:
-            global DATABASE
-            DATABASE = ycm_core.CompilationDatabase(comp_commands)
-
-        if not DATABASE.DatabaseSuccessfullyLoaded:
+        database = ycm_core.CompilationDatabase(comp_commands)
+        if not database.DatabaseSuccessfullyLoaded:
             raise Exception("cmake database failed to load")
 
         if isHeaderFile(filename):
-            flags += getFlagsForHeaderFile(filename, DATABASE)
+            flags += getFlagsForHeaderFile(filename, database)
         else:
-            comp_info = DATABASE.GetCompilationInfoForFile(filename)
+            comp_info = database.GetCompilationInfoForFile(filename)
             flags += list(comp_info.compiler_flags_)
-
-        flags += DEFAULT_FLAGS
     else:
-        flags += DEFAULT_FLAGS
+        flags += DEFAULT_FLAGS_COMMON
         if isCFile(filename):
-            flags += ['-std=c99']
+            flags += DEFAULT_C_FLAGS
+            flags += DEFAULT_C_INCLUDES
         elif isCPPFile(filename):
-            flags += ['-std=c++11']
-
-    if isCFile(filename):
-        flags += ['-x', 'c']
-        flags += C_INCLUDES
-    elif isCPPFile(filename):
-        flags += ['-x', 'c++']
-        flags += CPP_INCLUDES
+            flags += DEFAULT_CPP_FLAGS
+            flags += DEFAULT_CPP_INCLUDES
 
     return { 'flags': flags, 'do_cache': True }
 
