@@ -5,7 +5,7 @@ hash -d dotfiles=~/.dotfiles
 alias ls="ls -G"
 alias l="ls -alh"
 alias grep="grep --color=auto"
-alias historyall="fc -l 1"
+alias history-all="fc -E -l 1"
 
 # Git
 alias gst="git status"

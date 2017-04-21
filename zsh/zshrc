@@ -32,8 +32,8 @@ setopt COMBINING_CHARS
 # History Options {{{
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 setopt APPEND_HISTORY         # Append to the history file, don't replace it
 setopt INC_APPEND_HISTORY     # Append to history file as soon as possible, not just after a session ends
