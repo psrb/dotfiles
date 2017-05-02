@@ -12,7 +12,7 @@ local function deleteBlackoutRectangle()
 end
 
 local function createBlackoutRectangle()
-  screen = hs.screen.mainScreen()
+  screen = hs.mouse.getCurrentScreen()
   blackoutRect = hs.drawing.rectangle(screen:fullFrame())
   blackoutRect:setFillColor({0, 0, 0, 1})
   blackoutRect:setFill(true)
