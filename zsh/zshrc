@@ -167,11 +167,13 @@ if [[ "$TERM" == *xterm* ]] || [[ "$TERM" == rxvt* ]]; then
             local PWD_URL="file://$HOST$URL_PATH"
             printf '\e]7;%s\a' "$PWD_URL"
             window_title="$ssh_prefix"
+            # http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
+            print -Pn "\e]1;\a" # Clears the title of a tab of
+        elif [[ $TERM_PROGRAM == "iTerm.app" ]]; then
+            # Tab title in iTerm
+            print -Pn "\e]1;%30<...<$window_title\a" # Truncate to 20 chars
         fi
-
-        # http://www.faqs.org/docs/Linux-mini/Xterm-Title.html#ss3.1
         print -Pn "\e]2;$window_title\a" # Window title
-        print -Pn "\e]1;\a" # Clears the title of a tab of
     }
     precmd_functions+=(title_precmd)
 fi
