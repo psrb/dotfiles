@@ -171,7 +171,7 @@ if [[ "$TERM" == *xterm* ]] || [[ "$TERM" == rxvt* ]]; then
             print -Pn "\e]1;\a" # Clears the title of a tab of
         elif [[ $TERM_PROGRAM == "iTerm.app" ]]; then
             # Tab title in iTerm
-            print -Pn "\e]1;%30<...<$window_title\a" # Truncate to 20 chars
+            print -Pn "\e]1;%20<...<$window_title\a" # Truncate to 20 chars
         fi
         print -Pn "\e]2;$window_title\a" # Window title
     }
