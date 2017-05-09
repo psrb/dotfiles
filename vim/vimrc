@@ -350,6 +350,20 @@
       let g:ycm_autoclose_preview_window_after_insertion = 1
       let g:ycm_rust_src_path = $RUST_SRC_PATH
 
+      let g:ycm_filetype_blacklist = {
+            \ 'tagbar' : 1,
+            \ 'qf' : 1,
+            \ 'notes' : 1,
+            \ 'markdown' : 1,
+            \ 'unite' : 1,
+            \ 'tex' : 1,
+            \ 'text' : 1,
+            \ 'vimwiki' : 1,
+            \ 'pandoc' : 1,
+            \ 'infolog' : 1,
+            \ 'mail' : 1
+            \}
+
       nnoremap <silent> <Leader>yg :YcmCompleter GoTo<CR>
       nnoremap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
       nnoremap <silent> <Leader>yf :YcmCompleter GoToDefinition<CR>
