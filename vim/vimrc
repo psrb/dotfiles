@@ -26,11 +26,6 @@
   " git plugin
   Plug 'tpope/vim-fugitive'
 
-  " dependency for vim-session
-  Plug 'xolox/vim-misc'
-  " Nice session management
-  Plug 'xolox/vim-session'
-
   " also better highlights for c
   Plug 'octol/vim-cpp-enhanced-highlight'
 
@@ -329,14 +324,6 @@
     let g:delimitMate_quotes = "\" '"
     " put closing bracket on seperate line after enter
     let g:delimitMate_expand_cr = 1
-  " }}}
-
-  " Session {{{
-    let g:session_autosave = "yes"
-    let g:session_autoload = "no"
-    let g:session_command_aliases = 1
-    let g:session_persist_font = 0
-    let g:session_persist_colors = 0
   " }}}
 
   " Bufkill {{{
