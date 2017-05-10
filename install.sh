@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# https://github.com/junegunn/vim-plug
+PLUG_VIM_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+# https://github.com/ganwell/vim-hunspell-dicts
+HUNSPELL_DICT_URL="https://1042.ch/spell/hun-de-DE-frami.utf-8.spl"
+
 ask() {
     printf "%s [yN]: " "$1"
     read -r yn
@@ -45,18 +50,20 @@ create_link() {
     ln -s "$file" "$link_name"
 }
 
-download_plug_vim() {
-    file_path=$1
+download() {
+    name=$1
+    file_path=$2
+    url=$3
 
-    echo "Downloading plug.vim"
+    printf "Downloading %s\n" "$name"
     printf " "
     if [ -e "$file_path" ]; then
         echo "Already downloaded!"
         return
     fi
 
-    if curl -sfLo "$file_path" --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim;
+    if curl --silent --fail --location --output "$file_path" --create-dirs \
+        "$url"
     then
         echo "Downloaded!"
     else
@@ -95,7 +102,7 @@ echo " Folder: ~/.vimundo"
 [ ! -d ~/.vimundo ] && mkdir ~/.vimundo
 echo
 
-echo "Installing ZSH completions"
+echo "Cloning ZSH completions"
 
 if [ ! -d "$SCRIPT_DIR/zsh/completion/zsh-completions" ]
 then
@@ -106,7 +113,11 @@ else
 fi
 echo
 
-download_plug_vim "$SCRIPT_DIR/vim/autoload/plug.vim"
+download "plug.vim" "$SCRIPT_DIR/vim/autoload/plug.vim" "$PLUG_VIM_URL"
+echo
+
+download "hunspell dictionary" "$SCRIPT_DIR/vim/spell/hun-de.utf-8.spl" \
+    "$HUNSPELL_DICT_URL"
 echo
 
 echo "Installing Vim plugins"
