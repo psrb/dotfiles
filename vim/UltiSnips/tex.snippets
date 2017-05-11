@@ -1,0 +1,18 @@
+snippet tmpenv "Temporary environment" b
+\begin{tmpenv}
+${0:${VISUAL}}
+\end{tmpenv}
+endsnippet
+
+snippet tmp "Temporary environment" w
+\tmp{${1:${VISUAL}}} $0
+endsnippet
+
+snippet todo "Todo" w
+\todo{${1:${VISUAL}}} $0
+endsnippet
+
+snippet todoi "Inline Todo" b
+\todo[inline]{${0:${VISUAL}}}
+
+endsnippet
