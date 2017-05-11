@@ -22,3 +22,5 @@ inoremap <buffer> <CR> <CR><C-g>u
 setlocal formatoptions-=o " don't insert comment leader after o,O
 setlocal formatoptions-=r " don't insert comment leader after <Enter>
 
+set wrap      " Wrap lines longer than window width
+set linebreak " Break up lines on a word boundary
