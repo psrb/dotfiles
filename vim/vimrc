@@ -227,14 +227,13 @@
 " }}}
 
 " Indentation {{{
-  set tabstop=4
-  set shiftwidth=0 " use tabstop value
+  set tabstop=4       " a tab is 4 spaces long
+  set expandtab       " use spaces instead of tabs
+  set shiftwidth=0    " use tabstop value
   set softtabstop=-1  " use shiftwidth value
-  set expandtab
+  set shiftround      " shift to multiple of shiftwidth, ie 6 to 8
   set backspace=indent,eol,start
   set autoindent
-  set copyindent
-  set cindent
 " }}}
 
 " Search {{{
@@ -384,6 +383,8 @@
       let g:syntastic_always_populate_loc_list = 1
       let g:syntastic_mode_map = { 'passive_filetypes': ['tex', 'swift'] }
       let g:syntastic_rust_checkers = ['rustc']
+      let g:syntastic_python_checkers = ['python', 'pylint', 'flake8', 'mypy']
+      let g:syntastic_aggregate_errors = 1
     " }}}
 
     " Pandoc {{{
@@ -400,7 +401,8 @@
     " }}}
 
     " vimtex {{{
-      let g:vimtex_fold_enabled=1
+      let g:vimtex_fold_enabled=0
+      let g:vimtex_indent_enabled=0
 
       if has('macunix')
         let g:vimtex_view_general_viewer =
