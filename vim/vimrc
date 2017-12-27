@@ -56,7 +56,7 @@
     Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
     " syntax checking
-    Plug 'scrooloose/syntastic'
+    Plug 'w0rp/ale'  " requires Vim 8
 
     " external deps: clang format
     Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
@@ -379,12 +379,8 @@
       map <silent> <Leader>t :TagbarToggle<cr>
     " }}}
 
-    " Syntastic {{{
-      let g:syntastic_always_populate_loc_list = 1
-      let g:syntastic_mode_map = { 'passive_filetypes': ['tex', 'swift'] }
-      let g:syntastic_rust_checkers = ['rustc']
-      let g:syntastic_python_checkers = ['python', 'pylint', 'flake8', 'mypy']
-      let g:syntastic_aggregate_errors = 1
+    " Ale {{{
+      let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
     " }}}
 
     " Pandoc {{{
