@@ -26,3 +26,4 @@ alias tmuxkss="tmux kill-session"
 
 alias bell="echo -en '\a'"
 
+alias ag="ag --color-line-number='1;38;5;3' --color-path='1;38;5;2' color"
