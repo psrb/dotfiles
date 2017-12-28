@@ -1,6 +1,6 @@
-
-hash -d Notes=~/Dropbox/notes
 hash -d Projects=~/Projects
+
+alias ls="ls -G"
 
 # Brew
 alias brewup="brew update"
@@ -14,21 +14,3 @@ alias brewls="brew list"
 alias lmkcon="latexmk -pvc -pdf"
 alias lmkcl="latexmk -c"
 alias lmkclf="latexmk -C"
-
-##### Functions #####
-
-function notes() {
-    mvim +cd$(<<<~Notes) ~Notes/$^@
-}
-
-# Completion function for notes(), could be improved...
-function _notes() {
-    local context state state_descr line expl
-    typeset -A opt_args
-
-    files=(~Notes/**/*.md)
-    notes=(${files#~Notes/})
-    _wanted notes expl 'all notes' compadd -a notes
-}
-compdef _notes notes
-

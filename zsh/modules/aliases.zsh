@@ -2,7 +2,6 @@
 hash -d dotfiles=~/.dotfiles
 
 # General
-alias ls="ls -G"
 alias l="ls -alh"
 alias grep="grep --color=auto"
 alias history-all="fc -E -l 1"
