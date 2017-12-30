@@ -107,6 +107,10 @@
   let &t_ZH="\e[3m"
   let &t_ZR="\e[23m"
 
+  " undercurl
+  let &t_Cs = "\e[4:3m"
+  let &t_Ce = "\e[4:0m"
+
   " Set tab title in iTerm
   let &t_ts="\e]1;"
   let &t_fs="\007" " Bell
