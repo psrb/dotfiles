@@ -380,7 +380,7 @@
     " }}}
 
     " Ale {{{
-      let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+      let g:ale_echo_msg_format = '%severity%: %s - [%linter%%: code%]'
     " }}}
 
     " Pandoc {{{
