@@ -384,6 +384,7 @@
       nnoremap <silent> <Leader>yg :YcmCompleter GoTo<CR>
       nnoremap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
       nnoremap <silent> <Leader>yf :YcmCompleter GoToDefinition<CR>
+      nnoremap <silent> <Leader>yd :YcmCompleter GetDoc<CR>
     " }}}
 
     " ClangFormat {{{
