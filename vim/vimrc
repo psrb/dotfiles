@@ -113,8 +113,8 @@
   let &t_ZR="\e[23m"
 
   " undercurl
-  let &t_Cs = "\e[4:3m"
-  let &t_Ce = "\e[4:0m"
+  let &t_Cs = "\e[4m"
+  let &t_Ce = "\e[24m"
 
   " Set tab title in iTerm
   let &t_ts="\e]1;"
