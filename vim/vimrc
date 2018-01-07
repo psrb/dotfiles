@@ -42,9 +42,6 @@
 
   Plug 'tmux-plugins/vim-tmux'
 
-  " javascript syntax
-  Plug 'othree/yajs.vim'
-
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
@@ -107,18 +104,24 @@
   " and enable visual bell, but clear the visual bell character
   set visualbell t_vb =
 
-  " support of italic font style through escape codes in terminal
-  " http://stackoverflow.com/a/30937851
-  let &t_ZH="\e[3m"
-  let &t_ZR="\e[23m"
+  " Escape Codes {{{
+    if !has("gui_running")
+      " support of italic font style through escape codes in terminal
+      " http://stackoverflow.com/a/30937851
+      let &t_ZH="\e[3m"
+      let &t_ZR="\e[23m"
 
-  " undercurl
-  let &t_Cs = "\e[4m"
-  let &t_Ce = "\e[24m"
+      " undercurl
+      let &t_Cs="\e[4m"
+      let &t_Ce="\e[24m"
 
-  " Set tab title in iTerm
-  let &t_ts="\e]1;"
-  let &t_fs="\007" " Bell
+      " Set tab title in iTerm
+      if $TERM_PROGRAM == 'iTerm.app'
+        let &t_ts="\e]1;"
+        let &t_fs="\007" " Bell
+      endif
+    end
+  " }}}
 
   " folding
   set foldenable
@@ -153,7 +156,7 @@
     " Return an empty string if no branch name was found (no git repo) or the
     " branch name surrounded with [].
     function! GitStatus()
-      if exists('fugitive#head')
+      if exists("*fugitive#head")
         let name = fugitive#head(7)
         if !empty(name)
           return "[".name."]"
@@ -169,7 +172,8 @@
     set statusline+=%r " read only flag
     set statusline+=%w " preview flag
     set statusline+=%q " quickfix/location list flag
-    set statusline+=%{GitStatus()} " git status
+    set statusline+=%{&paste?'[PASTE]':''}
+    set statusline+=%{GitStatus()}
     set statusline+=%= " separation point between left/right aligned items
     " right side of status line
     set statusline+=%y " file type flag
@@ -211,8 +215,7 @@
 
   if has("gui_running")
     if has('macunix')
-        " set guifont=Source\ Code\ Pro\ Medium:h14
-        set guifont=Fira\ Mono:h14
+        set guifont=Menlo:h15
     endif
 
     if has("gui_macvim")
@@ -269,7 +272,7 @@
       colorscheme base16-ocean
     else
       set background=light
-      colorscheme base16-solarized
+      colorscheme base16-solarized-light
     endif
   endfunc
   command! ToggleLightColorScheme :call s:toggleLightColorScheme()
