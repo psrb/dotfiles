@@ -75,12 +75,6 @@ scriptencoding utf-8
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'godlygeek/tabular'
 
-    " Snippets, yay
-    Plug 'SirVer/UltiSnips'
-    " UltiSnips does not contain any snippets, here are some maintained by the
-    " community.
-    Plug 'honza/vim-snippets'
-
     " Some useful additions for LaTeX editing
     Plug 'lervag/vimtex'
 
@@ -400,12 +394,6 @@ scriptencoding utf-8
       let g:pandoc#folding#fdc=0
       let g:pandoc#spell#enabled=0
       let g:pandoc#modules#disabled = ['chdir']
-    " }}}
-
-    " UltiSnips {{{
-      let g:UltiSnipsExpandTrigger='<c-l>'
-      let g:UltiSnipsJumpForwardTrigger='<tab>'
-      let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
     " }}}
 
     " vimtex {{{
