@@ -52,7 +52,11 @@ scriptencoding utf-8
       " - status: 'installed', 'updated', or 'unchanged'
       " - force:  set on PlugInstall! or PlugUpdate!
       if a:info.status ==# 'installed' || a:info.force
-        !./install.py --clang-completer --gocode-completer --racer-completer
+       if has('macunix')
+          !./install.py --clang-completer --gocode-completer --racer-completer
+        else
+          !./install.py --clang-completer
+        endif
       endif
     endfunction
 
