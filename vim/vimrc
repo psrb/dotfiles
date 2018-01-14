@@ -78,9 +78,6 @@ scriptencoding utf-8
     " Some useful additions for LaTeX editing
     Plug 'lervag/vimtex'
 
-    " Swift syntax and indent files
-    Plug 'kballard/vim-swift'
-
     " Plugin for ag (the_silver_searcher)
     Plug 'rking/ag.vim'
 
@@ -405,10 +402,6 @@ scriptencoding utf-8
           \ '/Applications/Skim.app/Contents/SharedSupport/displayline'
         let g:vimtex_view_general_options = '-g -b @line @pdf @tex'
       endif
-    " }}}
-
-    " swift {{{
-      let g:swift_no_conceal=1
     " }}}
 
     " Ag {{{
