@@ -151,35 +151,22 @@
   set lazyredraw
 
   " Status Line {{{
-    set laststatus=2 "always show the status line
 
-    " Return an empty string if no branch name was found (no git repo) or the
-    " branch name surrounded with [].
-    function! GitStatus()
-      if exists("*fugitive#head")
-        let name = fugitive#head(7)
-        if !empty(name)
-          return "[".name."]"
-        endif
-      endif
-      return ""
-    endfunc
+    set laststatus=2 "always show the status line
 
     " left side of status line
     set statusline=
     set statusline+=%f " filename
-    set statusline+=\ %m " modified flag
-    set statusline+=%r " read only flag
-    set statusline+=%w " preview flag
-    set statusline+=%q " quickfix/location list flag
-    set statusline+=%{&paste?'[PASTE]':''}
-    set statusline+=%{GitStatus()}
-    set statusline+=%= " separation point between left/right aligned items
+    set statusline+=%(::%{StatusLineCurrentTag()}%)
+    set statusline+=%(\ [%M%R%W]%) " modified,readonly,preview flag
+    set statusline+=%(\ %{&paste?'[PASTE]':''}%)
+    " separation point between left/right aligned items
+    set statusline+=%=
     " right side of status line
-    set statusline+=%y " file type flag
-    set statusline+=%{\"[\".(&fenc==\"\"?&enc:&fenc).\",\".(&fileformat).\"]\"} " file encoding and format
-    set statusline+=\ %3l/%-3L  " line numbers
-    set statusline+=\ %3c\ " column number
+    set statusline+=%(%{StatusLineLintingStatus()}\ %)
+    set statusline+=%(%{StatusLineFileInfo()}\ %)
+    set statusline+=%3l/%-3L  " line numbers
+    set statusline+=\ %3c\  " column number
 
   " }}}
 " }}}
@@ -438,4 +425,3 @@
     " }}}
   endif
 " }}}
-
