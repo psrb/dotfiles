@@ -1,4 +1,5 @@
 " vim: sw=2 ts=2 sts=2 et fmr={{{,}}} fdm=marker
+scriptencoding utf-8
 
 " Configurable through the constant g:installType#isCompleteInstall in
 " vim/autoload/installType.vim.
@@ -50,7 +51,7 @@
       " - name:   name of the plugin
       " - status: 'installed', 'updated', or 'unchanged'
       " - force:  set on PlugInstall! or PlugUpdate!
-      if a:info.status == 'installed' || a:info.force
+      if a:info.status ==# 'installed' || a:info.force
         !./install.py --clang-completer --gocode-completer --racer-completer
       endif
     endfunction
@@ -96,8 +97,8 @@
 
 " General {{{
 
-  let mapleader=" "
-  let maplocalleader="\\"
+  let g:mapleader=' '
+  let g:maplocalleader='\\'
 
   " disable the visual/error bells
   set noerrorbells
@@ -105,7 +106,7 @@
   set visualbell t_vb =
 
   " Escape Codes {{{
-    if !has("gui_running")
+    if !has('gui_running')
       " support of italic font style through escape codes in terminal
       " http://stackoverflow.com/a/30937851
       let &t_ZH="\e[3m"
@@ -116,7 +117,7 @@
       let &t_Ce="\e[24m"
 
       " Set tab title in iTerm
-      if $TERM_PROGRAM == 'iTerm.app'
+      if $TERM_PROGRAM ==# 'iTerm.app'
         let &t_ts="\e]1;"
         let &t_fs="\007" " Bell
       endif
@@ -200,12 +201,12 @@
   " Number of lines to keep above/below the cursor
   set scrolloff=5
 
-  if has("gui_running")
+  if has('gui_running')
     if has('macunix')
         set guifont=Menlo:h15
     endif
 
-    if has("gui_macvim")
+    if has('gui_macvim')
       " Make without automatic jump, open quickfix if error present.
       an 40.360 &Tools.&Make<Tab>:make :make!<CR>:cw<CR>
     endif
@@ -254,7 +255,7 @@
 
  " Switch between dark and light color schemes
   function! s:toggleLightColorScheme()
-    if &background ==? "light"
+    if &background ==? 'light'
       set background=dark
       colorscheme base16-ocean
     else
@@ -325,8 +326,8 @@
   " }}}
 
   " Session {{{
-    let g:session_autosave = "yes"
-    let g:session_autoload = "no"
+    let g:session_autosave = 'yes'
+    let g:session_autoload = 'no'
     let g:session_command_aliases = 1
     let g:session_persist_font = 0
     let g:session_persist_colors = 0
@@ -352,10 +353,10 @@
 
   if g:installType#isCompleteInstall == 1
     " YouCompleteMe {{{
-      let g:ycm_global_ycm_extra_conf = "~/.vim/ycm_extra_conf.py"
+      let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
       let g:ycm_autoclose_preview_window_after_insertion = 1
       let g:ycm_rust_src_path = $RUST_SRC_PATH
-      let g:ycm_python_binary_path = "python"  " for venv
+      let g:ycm_python_binary_path = 'python'  " for venv
 
       let g:ycm_filetype_blacklist = {
             \ 'tagbar' : 1,
@@ -390,19 +391,21 @@
 
     " Ale {{{
       let g:ale_echo_msg_format = '%severity%: %s - [%linter%%: code%]'
+      nnoremap <Leader>ln :ALENextWrap<CR>
+      nnoremap <Leader>lp :ALEPreviousWrap<CR>
     " }}}
 
     " Pandoc {{{
       let g:pandoc#syntax#conceal#use=0
       let g:pandoc#folding#fdc=0
       let g:pandoc#spell#enabled=0
-      let g:pandoc#modules#disabled = ["chdir"]
+      let g:pandoc#modules#disabled = ['chdir']
     " }}}
 
     " UltiSnips {{{
-      let g:UltiSnipsExpandTrigger="<c-l>"
-      let g:UltiSnipsJumpForwardTrigger="<tab>"
-      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+      let g:UltiSnipsExpandTrigger='<c-l>'
+      let g:UltiSnipsJumpForwardTrigger='<tab>'
+      let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
     " }}}
 
     " vimtex {{{
