@@ -175,9 +175,10 @@ scriptencoding utf-8
   set background=dark
   colorscheme base16-ocean
 
-  set number " line numbers
+  set relativenumber " display line numbers relative to cursor
+  set number         " with above: show actual line number for cursor line
   set colorcolumn=+1 " highlight one column after text width
-  set cursorline " highlight the line of the cursor
+  set cursorline     " highlight the line of the cursor
 
   " show tabs, trailing spaces, non-breaking spaces and line wraps
   set list
