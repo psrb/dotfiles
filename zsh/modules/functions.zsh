@@ -18,9 +18,9 @@ function man() {
     LESS_TERMCAP_md=$'\e[1;38;5;1m' \
     LESS_TERMCAP_me=$'\e[0m' \
     LESS_TERMCAP_se=$'\e[0m' \
-    LESS_TERMCAP_so=$'\e[1;38;5;10;48;5;3m' \
+    LESS_TERMCAP_so=$'\e[1;38;5;0;48;5;3m' \
     LESS_TERMCAP_ue=$'\e[0m' \
     LESS_TERMCAP_us=$'\e[1;38;5;2m' \
-    PAGER=/usr/bin/less \
+    MANPAGER='/usr/bin/less -is' \
     command man "$@"
 }
