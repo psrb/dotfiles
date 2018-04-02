@@ -16,6 +16,8 @@ export LESS="--RAW-CONTROL-CHARS --ignore-case -M"
 export LSCOLORS="GxfxcxdxbxDxDxabagacad"
 export LS_COLORS='di=00;36:ln=35:so=32:pi=33:ex=31:bd=00;33:cd=00;33:su=30;41:sg=30;46;:tw=30;42:ow=30;43'
 
+export GPG_TTY=$(tty)
+
 # Local environment addition belong in zshenv.local
 # Since El Capitan /etc/zprofile sets the path, which is sourced after $ZDOTDIR/.zshenv
 # Therefore path addition go now in zprofile.local.

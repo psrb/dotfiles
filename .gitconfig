@@ -27,6 +27,13 @@
     showStash = true
     showUntrackedFiles = all
 
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    # simple log
+    l = log --pretty=\"%C(auto)%h -%d %s %Cblue<%an [%G?]>%Creset (%cr)\"
+
 # Work related overwrites
 [include]
     path = ~/.gitconfig_work
