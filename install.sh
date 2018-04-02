@@ -93,6 +93,9 @@ create_link "$SCRIPT_DIR/zsh/zshrc" ~/.zshrc
 create_link "$SCRIPT_DIR/.gitconfig" ~/.gitconfig
 create_link "$SCRIPT_DIR/.gitignore_global" ~/.gitignore_global
 
+mkdir -p ~/.gnupg/
+create_link "$SCRIPT_DIR/gnupg/gpg.conf" ~/.gnupg/gpg.conf
+
 if [ "$(uname)" = "Darwin" ]
 then
     create_link "$SCRIPT_DIR/hammerspoon" ~/.hammerspoon
