@@ -31,6 +31,7 @@
     st = status
     ci = commit
     co = checkout
+    ah = add .
     # simple log
     l = log --pretty=\"%C(auto)%h -%d %s %Cblue<%an [%G?]>%Creset (%cr)\"
 

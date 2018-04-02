@@ -17,8 +17,6 @@ Filetype specific settings are configured in `vim/after/ftplugin`.
 A type of 'inheritance' is implemented by using `runtime!`.
 For example both Markdown (`pandoc.vim`) and LaTeX (`tex.vim`) inherit settings from plain text files (`text.vim`) through `runtime! ftplugin/text.vim`.
 
-[YouCompleteMe](https://github.com/Valloric/YouCompleteMe) has a default `vim/ycm_extra_conf.py` that allows auto completion for small `C/C++` projects (or mainly quick tests) without setup.
-
 ## ZSH
 
 ### Configuration

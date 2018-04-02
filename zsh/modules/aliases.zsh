@@ -5,6 +5,7 @@ hash -d dotfiles=~/.dotfiles
 alias l="ls -alh"
 alias grep="grep --color=auto"
 alias history-all="fc -E -l 1"
+alias g="git"
 
 # Tmux
 alias tmuxa="tmux attach"

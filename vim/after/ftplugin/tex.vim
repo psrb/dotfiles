@@ -1,2 +1,1 @@
 runtime! ftplugin/text.vim
-
