@@ -1,0 +1,32 @@
+[user]
+    name = Pascal Urban
+    email = mail@psrb.io
+    signingKey = 0x82524AA166C6C24F
+
+[core]
+    excludesFile = /Users/pascal/.gitignore_global
+    autocrlf = input
+
+[push]
+    default = simple
+    followTags = true
+
+[commit]
+    gpgsign = true
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
+
+[merge]
+    tool = vimdiff
+
+[status]
+    showStash = true
+    showUntrackedFiles = all
+
+# Work related overwrites
+[include]
+    path = ~/.gitconfig_work
