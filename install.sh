@@ -90,8 +90,8 @@ create_link "$SCRIPT_DIR/zsh" ~/.zsh
 create_link "$SCRIPT_DIR/zsh/zprofile" ~/.zprofile
 create_link "$SCRIPT_DIR/zsh/zshenv" ~/.zshenv
 create_link "$SCRIPT_DIR/zsh/zshrc" ~/.zshrc
-create_link "$SCRIPT_DIR/.gitconfig" ~/.gitconfig
-create_link "$SCRIPT_DIR/.gitignore_global" ~/.gitignore_global
+create_link "$SCRIPT_DIR/gitconfig" ~/.gitconfig
+create_link "$SCRIPT_DIR/gitignore_global" ~/.gitignore_global
 
 mkdir -p ~/.gnupg/
 create_link "$SCRIPT_DIR/gnupg/gpg.conf" ~/.gnupg/gpg.conf
