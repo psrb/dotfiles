@@ -7,6 +7,12 @@
     excludesFile = /Users/pascal/.gitignore_global
     autocrlf = input
 
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+
 [push]
     default = simple
     followTags = true
