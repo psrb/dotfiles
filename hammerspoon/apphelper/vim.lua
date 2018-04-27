@@ -1,4 +1,4 @@
---- MacVim helper functions
+--- Vim helper functions
 --- * Creating new windows
 --- * Load sessions or open file/directory of frontmost app
 
@@ -7,10 +7,10 @@ require "utility/applescript"
 local fn = hs.fnutils
 local iterm = require "appHelper/iterm"
 
-local macvim = {}
+local vim = {}
 
-function macvim.launchOrNewWindow()
-  iterm.doCommand([[mvim +\"silent ruby p ''\" && sleep 2 && exit]])
+function vim.launchOrNewWindow()
+  iterm.doCommand([[vim]])
 end
 
 --------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ local vimOpenChooser = nil
 local function chooseComplete(choice)
   if choice["type"] == "Finder" then
     iterm.doCommand(string.format(
-      [[cd \"%s\" && mvim +\"silent ruby p ''\" && sleep 2 && exit]],
+      [[cd \"%s\" && vim]],
       choice["path"]))
 
   elseif choice["type"] == "Xcode" then
@@ -126,12 +126,12 @@ local function chooseComplete(choice)
 
   elseif choice["type"] == "Vim Session" then
     iterm.doCommand(string.format(
-      [[mvim +\"silent ruby p ''\" +\"OpenSession %s\" && sleep 2 && exit]],
+      [[vim +\"OpenSession %s\"]],
       choice["session"]))
   end
 end
 
-function macvim.openDialog()
+function vim.openDialog()
 
   if not vimOpenChooser then
     vimOpenChooser = hs.chooser.new(chooseComplete)
@@ -145,5 +145,5 @@ function macvim.openDialog()
   vimOpenChooser:show()
 end
 
-return macvim
+return vim
 

@@ -3,7 +3,8 @@ require "windowHandling"
 require "utility/blackout"
 
 local iterm = require "appHelper/iterm"
-local macvim = require "appHelper/macvim"
+local vim = require "appHelper/vim"
+local safari = require "appHelper/safari"
 
 local bind = hs.hotkey.bind
 local mash = {"cmd", "alt", "ctrl"}
@@ -78,11 +79,13 @@ bind(mash, "T", iterm.launchOrNewWindow)
 --- Create a new Terminal window in working directory of frontmost app
 bind(hyper, "T", iterm.newWindowForFrontmostApp)
 
---- Create a new MacVim window
-bind(mash, "V", macvim.launchOrNewWindow)
+bind(hyper, "S", safari.newWindow)
+
+--- Create a new vim window
+bind(mash, "V", vim.launchOrNewWindow)
 --- Display chooser containing options to open file/directory of frontmost app
 --- or specific sessions
-bind(hyper, "V", macvim.openDialog)
+bind(hyper, "V", vim.openDialog)
 
 --- Dash
 bind(mash, "D", function() hs.application.launchOrFocus("Dash") end)

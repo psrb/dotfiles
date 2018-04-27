@@ -1,7 +1,5 @@
 require "utility/applescript"
 
-local logger = hs.logger.new("iTerm")
-
 local iterm = {}
 
 function iterm.newWindow()
