@@ -31,7 +31,6 @@
 
 [status]
     showStash = true
-    showUntrackedFiles = all
 
 [alias]
     st = status
@@ -39,7 +38,7 @@
     co = checkout
     ah = add .
     # simple log
-    l = log --pretty=\"%C(auto)%h -%d %s %Cblue<%an [%G?]>%Creset (%cr)\"
+    l = log --graph --pretty=\"%C(auto)%h -%d %s %Cblue<%an [%G?]>%Creset (%cr)\"
 
 # Work related overwrites
 [include]
