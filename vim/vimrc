@@ -46,6 +46,8 @@ scriptencoding utf-8
 
   Plug 'tmux-plugins/vim-tmux'
 
+  Plug 'vimjas/vim-python-pep8-indent'
+
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
@@ -56,9 +58,9 @@ scriptencoding utf-8
       " - force:  set on PlugInstall! or PlugUpdate!
       if a:info.status ==# 'installed' || a:info.force
        if has('macunix')
-          !./install.py --clang-completer --gocode-completer --racer-completer
+          !python3 install.py --clang-completer --gocode-completer --racer-completer
         else
-          !./install.py --clang-completer
+          !python3 ./install.py --clang-completer
         endif
       endif
     endfunction
