@@ -27,6 +27,9 @@ scriptencoding utf-8
   " git plugin
   Plug 'tpope/vim-fugitive'
 
+  " Better netrw handling
+  Plug 'tpope/vim-vinegar'
+
   " dependency for vim-session
   Plug 'xolox/vim-misc'
   " Nice session management

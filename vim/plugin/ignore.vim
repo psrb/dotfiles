@@ -20,6 +20,10 @@ set wildignore+=*.synctex.gz
 set wildignore+=*.tdo
 set wildignore+=*.toc
 
+" Python
+set wildignore+=*.pyc
+set wildignore+=__pycache__
+
 " Netrw
 let s:ignore_regex = map(split(&wildignore, ','), 'substitute(v:val, "\*", ".*\\", "g")')
 let g:netrw_list_hide=join(s:ignore_regex, ',')
