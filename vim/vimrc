@@ -48,6 +48,12 @@ scriptencoding utf-8
 
   Plug 'vimjas/vim-python-pep8-indent'
 
+  " Replace existing text with contents of a register with gr \o/
+  Plug 'vim-scripts/ReplaceWithRegister'
+
+  " Live preview of complex regex searches/substitutes
+  Plug 'markonm/traces.vim'
+
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
