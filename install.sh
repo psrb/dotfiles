@@ -95,6 +95,7 @@ create_link "$SCRIPT_DIR/gitignore_global" ~/.gitignore_global
 
 mkdir -p ~/.gnupg/
 create_link "$SCRIPT_DIR/gnupg/gpg.conf" ~/.gnupg/gpg.conf
+create_link "$SCRIPT_DIR/gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
 
 if [ "$(uname)" = "Darwin" ]
 then
