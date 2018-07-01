@@ -1,9 +1,12 @@
 dotfiles
 ========
-A collection of my various dotfiles.
+A collection of my various dotfiles and other configuration files.
 
 ## Usage
 `./install.sh` creates all necessary links, folders, downloads [vim-plug](https://github.com/junegunn/vim-plug) and installs all Vim plugins.
+Additional programs on macOS can be installed through the package manager [Homebrew](https://brew.sh).
+A list of my currently installed programs is defined in the [Brewfile](https://github.com/Homebrew/homebrew-bundle).
+The listed programs can be installed using the following `brew bundle install --verbose`.
 
 ## Vim
 
@@ -22,4 +25,3 @@ For example both Markdown (`pandoc.vim`) and LaTeX (`tex.vim`) inherit settings 
 ### Configuration
 
 Machine specific environment variables can be put in `~/.zshenv.local` and `$PATH` additions in `~/.zprofile.local`.
-
