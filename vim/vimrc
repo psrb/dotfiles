@@ -54,6 +54,9 @@ scriptencoding utf-8
   " Live preview of complex regex searches/substitutes
   Plug 'markonm/traces.vim'
 
+  " Collection of language packs
+  Plug 'sheerun/vim-polyglot'
+
   if g:installType#isCompleteInstall == 1
     " Only rebuild YCM if necessary
     " From https://github.com/junegunn/vim-plug#post-update-hooks
