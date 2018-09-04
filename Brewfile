@@ -1,5 +1,3 @@
-tap "homebrew/versions"
-tap "homebrew/dupes"
 tap "caskroom/cask"
 tap "caskroom/fonts"
 tap "universal-ctags/universal-ctags"
@@ -70,7 +68,6 @@ cask "hammerspoon"
 cask "suspicious-package"
 
 ## Quicklook Plugins
-cask "betterzipql" # Show contents of zip file in quicklook
 cask "qlmarkdown" # View formatted markdown in quicklook
 cask "qlstephen" # View plaintext files in quicklook
 cask "quicklook-csv"
