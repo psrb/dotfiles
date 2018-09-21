@@ -1,4 +1,3 @@
-
 export EDITOR="vim"
 export VISUAL=$EDITOR
 export WORDCHARS="" # clear wordchars for better deletion e.g. foo/bar^W -> foo/ instead of ""
@@ -18,10 +17,12 @@ export LS_COLORS='di=00;36:ln=35:so=32:pi=33:ex=31:bd=00;33:cd=00;33:su=30;41:sg
 
 export GPG_TTY=$(tty)
 
+# Prevent installing python packages globally
+export PIP_REQUIRE_VIRTUALENV=true
+
 # Local environment addition belong in zshenv.local
 # Since El Capitan /etc/zprofile sets the path, which is sourced after $ZDOTDIR/.zshenv
 # Therefore path addition go now in zprofile.local.
 if [[ -f ~/.zshenv.local ]]; then
     source ~/.zshenv.local
 fi
-

@@ -11,6 +11,7 @@ brew "ruby"
 
 # Dev stuff
 brew "ansible"
+brew "direnv"
 brew "cloc"
 brew "cmake"
 brew "git"
@@ -19,6 +20,8 @@ brew "jq"
 brew "jsonpp"
 brew "macvim", args: ["with-override-system-vim", "HEAD"]
 brew "make"
+brew "pyenv"
+brew "pyenv-virtualenv"
 brew "shellcheck"
 brew "tmux"
 brew "universal-ctags", args: ["HEAD"]
