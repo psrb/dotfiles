@@ -108,7 +108,7 @@ scriptencoding utf-8
 " General {{{
 
   let g:mapleader=' '
-  let g:maplocalleader='\\'
+  let g:maplocalleader='\'
 
   " disable the visual/error bells
   set noerrorbells
