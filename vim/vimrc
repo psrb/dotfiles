@@ -63,11 +63,15 @@ scriptencoding utf-8
       " - status: 'installed', 'updated', or 'unchanged'
       " - force:  set on PlugInstall! or PlugUpdate!
       if a:info.status ==# 'installed' || a:info.force
-       if has('macunix')
-          !python3 install.py --clang-completer --gocode-completer --racer-completer
-        else
-          !python3 ./install.py --clang-completer
+        let completers = ['--clang-completer']
+        if executable('go')
+          call add(completers, '--gocode-completer')
         endif
+        if executable('rustc')
+          call add(completers, '--racer-completer')
+        endif
+
+        execute "!python3 install.py " . join(completers, ' ')
       endif
     endfunction
 
