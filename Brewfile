@@ -1,5 +1,5 @@
-tap "caskroom/cask"
-tap "caskroom/fonts"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "universal-ctags/universal-ctags"
 
 # Languages
@@ -24,6 +24,7 @@ brew "pyenv"
 brew "pyenv-virtualenv"
 brew "shellcheck"
 brew "tmux"
+brew "hadolint"  # Dockerfile linter
 brew "universal-ctags", args: ["HEAD"]
 brew "zsh"
 
@@ -42,7 +43,6 @@ brew "nmap"
 brew "pandoc"
 brew "pv"
 brew "rsync"
-brew "rtmpdump"
 brew "smartmontools"
 brew "speedtest-cli"
 brew "ssh-copy-id"
@@ -56,19 +56,17 @@ brew "youtube-dl"
 
 # Cask
 
-# cask "font-fira-mono"
-
-cask "xquartz"
-brew "diff-pdf" # depends on xquartz
-
-
 cask "iterm2"
-cask "hex-fiend"
+cask "hammerspoon"
+cask "dash"
+cask "docker"
 cask "firefox"
+cask "google-chrome"
+cask "hex-fiend"
 cask "insomnia"
 cask "skim"
-cask "hammerspoon"
 cask "suspicious-package"
+cask "marked"
 
 ## Quicklook Plugins
 cask "qlmarkdown" # View formatted markdown in quicklook
