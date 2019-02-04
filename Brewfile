@@ -11,11 +11,13 @@ brew "ruby"
 
 # Dev stuff
 brew "ansible"
-brew "direnv"
 brew "cloc"
 brew "cmake"
+brew "direnv"
+brew "fzf"
 brew "git"
 brew "git-extras"
+brew "hadolint"  # Dockerfile linter
 brew "jq"
 brew "jsonpp"
 brew "macvim", args: ["with-override-system-vim", "HEAD"]
@@ -24,7 +26,6 @@ brew "pyenv"
 brew "pyenv-virtualenv"
 brew "shellcheck"
 brew "tmux"
-brew "hadolint"  # Dockerfile linter
 brew "universal-ctags", args: ["HEAD"]
 brew "zsh"
 
