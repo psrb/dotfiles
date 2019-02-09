@@ -14,4 +14,7 @@ if command -v fzf > /dev/null; then
             ag --hidden --ignore .git -g "$1"
         }
     fi
+
+    # Restore CTRL-t normal mapping
+    bindkey '\C-t' transpose-chars
 fi
