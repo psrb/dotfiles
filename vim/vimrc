@@ -97,8 +97,8 @@ scriptencoding utf-8
     " Some useful additions for LaTeX editing
     Plug 'lervag/vimtex'
 
-    " Plugin for ag (the_silver_searcher)
-    Plug 'rking/ag.vim'
+    " Plugin for searching in files (using ack or ag)
+    Plug 'mileszs/ack.vim'
 
     Plug 'rust-lang/rust.vim'
 
@@ -426,8 +426,11 @@ scriptencoding utf-8
       endif
     " }}}
 
-    " Ag {{{
-      command! Todos :Ag \(FIXME\|TODO\)
+    " Ack {{{
+      command! Todos :Ack! \(FIXME\|TODO\)
+      if executable('ag')
+        let g:ackprg = 'ag --vimgrep'
+      endif
     " }}}
   endif
 " }}}
