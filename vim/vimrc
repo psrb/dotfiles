@@ -406,6 +406,9 @@ scriptencoding utf-8
 
     " Ale {{{
       let g:ale_echo_msg_format = '%severity%: %s - [%linter%%: code%]'
+      let g:ale_linters = { 'python': ['pylint', 'mypy', 'pycodestyle'] }
+      let g:ale_fixers = { 'python': ['black'] }
+      let g:ale_fix_on_save = 1
       nnoremap <Leader>ln :ALENextWrap<CR>
       nnoremap <Leader>lp :ALEPreviousWrap<CR>
     " }}}
