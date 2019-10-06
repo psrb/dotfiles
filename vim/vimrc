@@ -78,7 +78,7 @@ scriptencoding utf-8
     Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
     " syntax checking
-    Plug 'w0rp/ale'  " requires Vim 8
+    Plug 'dense-analysis/ale'  " requires Vim 8
 
     " external deps: clang format
     Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
