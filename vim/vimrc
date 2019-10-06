@@ -105,6 +105,8 @@ scriptencoding utf-8
     " Typescript
     Plug 'leafgarland/typescript-vim'
 
+    Plug 'posva/vim-vue'
+
   endif
   call plug#end()
 " }}}
