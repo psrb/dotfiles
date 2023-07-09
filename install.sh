@@ -3,7 +3,6 @@
 # https://github.com/junegunn/vim-plug
 PLUG_VIM_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 # https://github.com/ganwell/vim-hunspell-dicts
-HUNSPELL_DICT_URL="https://1042.ch/spell/hun-de-DE-frami.utf-8.spl"
 
 ask() {
     printf "%s [yN]: " "$1"
@@ -120,10 +119,6 @@ fi
 echo
 
 download "plug.vim" "$SCRIPT_DIR/vim/autoload/plug.vim" "$PLUG_VIM_URL"
-echo
-
-download "hunspell dictionary" "$SCRIPT_DIR/vim/spell/hun-de.utf-8.spl" \
-    "$HUNSPELL_DICT_URL"
 echo
 
 echo "Installing Vim plugins"
