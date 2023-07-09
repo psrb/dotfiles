@@ -30,17 +30,6 @@ scriptencoding utf-8
   " Better netrw handling
   Plug 'tpope/vim-vinegar'
 
-  " dependency for vim-session
-  Plug 'xolox/vim-misc'
-  " Nice session management
-  Plug 'xolox/vim-session'
-
-  " also better highlights for c
-  Plug 'octol/vim-cpp-enhanced-highlight'
-
-  " Switch between header/implementation file
-  Plug 'derekwyatt/vim-fswitch', {'for': ['c', 'cpp']}
-
   " sane buffer closing
   Plug 'vim-scripts/bufkill.vim'
 
@@ -80,9 +69,6 @@ scriptencoding utf-8
     " syntax checking
     Plug 'dense-analysis/ale'  " requires Vim 8
 
-    " external deps: clang format
-    Plug 'rhysd/vim-clang-format', {'for': ['c', 'cpp']}
-
     " syntax highlighting, autocomplete and more nice things for go
     Plug 'fatih/vim-go', {'for': 'go'}
 
@@ -94,9 +80,6 @@ scriptencoding utf-8
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'godlygeek/tabular'
 
-    " Some useful additions for LaTeX editing
-    Plug 'lervag/vimtex'
-
     " Plugin for searching in files (using ack or ag)
     Plug 'mileszs/ack.vim'
 
@@ -106,7 +89,6 @@ scriptencoding utf-8
     Plug 'leafgarland/typescript-vim'
 
     Plug 'posva/vim-vue'
-
   endif
   call plug#end()
 " }}}
@@ -342,14 +324,6 @@ scriptencoding utf-8
     let g:delimitMate_expand_cr = 1
   " }}}
 
-  " Session {{{
-    let g:session_autosave = 'yes'
-    let g:session_autoload = 'no'
-    let g:session_command_aliases = 1
-    let g:session_persist_font = 0
-    let g:session_persist_colors = 0
-  " }}}
-
   " Bufkill {{{
     nnoremap <silent> <Leader>bd :BD<CR>
   " }}}
@@ -393,13 +367,6 @@ scriptencoding utf-8
       nnoremap <silent> <Leader>yd :YcmCompleter GetDoc<CR>
     " }}}
 
-    " ClangFormat {{{
-      let g:clang_format#auto_format = 0
-      let g:clang_format#auto_format_on_insert_leave = 0
-      let g:clang_format#detect_style_file = 1
-      let g:clang_format#code_style = 'webkit'
-    " }}}
-
     " Tagbar {{{
       map <silent> <Leader>t :TagbarToggle<cr>
     " }}}
@@ -418,17 +385,6 @@ scriptencoding utf-8
       let g:pandoc#folding#fdc=0
       let g:pandoc#spell#enabled=0
       let g:pandoc#modules#disabled = ['chdir']
-    " }}}
-
-    " vimtex {{{
-      let g:vimtex_fold_enabled=0
-      let g:vimtex_indent_enabled=0
-
-      if has('macunix')
-        let g:vimtex_view_general_viewer =
-          \ '/Applications/Skim.app/Contents/SharedSupport/displayline'
-        let g:vimtex_view_general_options = '-g -b @line @pdf @tex'
-      endif
     " }}}
 
     " Ack {{{
