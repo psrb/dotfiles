@@ -44,33 +44,21 @@ scriptencoding utf-8
   Plug 'markonm/traces.vim'
 
   if g:installType#isCompleteInstall == 1
-    " Only rebuild YCM if necessary
-    " From https://github.com/junegunn/vim-plug#post-update-hooks
-    function! BuildYCM(info)
-      " info is a dictionary with 3 fields
-      " - name:   name of the plugin
-      " - status: 'installed', 'updated', or 'unchanged'
-      " - force:  set on PlugInstall! or PlugUpdate!
-      if a:info.status ==# 'installed' || a:info.force
-        let completers = ['--clang-completer']
-        if executable('go')
-          call add(completers, '--gocode-completer')
-        endif
-        if executable('rustc')
-          call add(completers, '--racer-completer')
-        endif
+    " auto completion through LSP
 
-        execute "!python3 install.py " . join(completers, ' ')
+    function! InstallCoCPlugins(info)
+      if a:info.status ==# 'installed' || a:info.force
+        execute 'CocInstall coc-json coc-tsserver coc-pyright coc-go'
       endif
     endfunction
 
-    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    Plug 'neoclide/coc.nvim', {
+          \ 'branch': 'release',
+          \ 'do': function('InstallCoCPlugins')
+          \ }
 
     " syntax checking
     Plug 'dense-analysis/ale'  " requires Vim 8
-
-    " syntax highlighting, autocomplete and more nice things for go
-    Plug 'fatih/vim-go', {'for': 'go'}
 
     " external deps: ctags
     Plug 'majutsushi/tagbar'
@@ -80,14 +68,13 @@ scriptencoding utf-8
     Plug 'vim-pandoc/vim-pandoc-syntax'
     Plug 'godlygeek/tabular'
 
+    " Display git changes in the sign column
+    Plug 'airblade/vim-gitgutter'
+
     " Plugin for searching in files (using ack or ag)
     Plug 'mileszs/ack.vim'
 
-    Plug 'rust-lang/rust.vim'
-
-    " Typescript
     Plug 'leafgarland/typescript-vim'
-
     Plug 'posva/vim-vue'
   endif
   call plug#end()
@@ -343,28 +330,47 @@ scriptencoding utf-8
   " }}}
 
   if g:installType#isCompleteInstall == 1
-    " YouCompleteMe {{{
-      let g:ycm_rust_src_path = $RUST_SRC_PATH
-      let g:ycm_python_binary_path = 'python'  " for venv
+    " CoC {{{
+      set updatetime=300
+      set signcolumn=yes
 
-      let g:ycm_filetype_blacklist = {
-            \ 'tagbar' : 1,
-            \ 'qf' : 1,
-            \ 'notes' : 1,
-            \ 'markdown' : 1,
-            \ 'unite' : 1,
-            \ 'tex' : 1,
-            \ 'text' : 1,
-            \ 'vimwiki' : 1,
-            \ 'pandoc' : 1,
-            \ 'infolog' : 1,
-            \ 'mail' : 1
-            \}
+      inoremap <silent><expr> <TAB>
+            \ coc#pum#visible() ? coc#pum#next(1) :
+            \ CheckBackspace() ? "\<Tab>" :
+            \ coc#refresh()
+      inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-      nnoremap <silent> <Leader>yg :YcmCompleter GoTo<CR>
-      nnoremap <silent> <Leader>yc :YcmCompleter GoToDeclaration<CR>
-      nnoremap <silent> <Leader>yf :YcmCompleter GoToDefinition<CR>
-      nnoremap <silent> <Leader>yd :YcmCompleter GetDoc<CR>
+      function! CheckBackspace() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+      endfunction
+
+      " Use <c-space> to trigger completion
+      if has('nvim')
+        inoremap <silent><expr> <c-space> coc#refresh()
+      else
+        inoremap <silent><expr> <c-@> coc#refresh()
+      endif
+
+      " GoTo code navigation
+      nmap <silent> gd <Plug>(coc-definition)
+      nmap <silent> gy <Plug>(coc-type-definition)
+      nmap <silent> gi <Plug>(coc-implementation)
+      nmap <silent> gt <Plug>(coc-references)
+
+      " Use K to show documentation in preview window
+      nnoremap <silent> K :call ShowDocumentation()<CR>
+
+      function! ShowDocumentation()
+        if CocAction('hasProvider', 'hover')
+          call CocActionAsync('doHover')
+        else
+          call feedkeys('K', 'in')
+        endif
+      endfunction
+
+      " Highlight the symbol and its references when holding the cursor
+      autocmd CursorHold * silent call CocActionAsync('highlight')
     " }}}
 
     " Tagbar {{{
@@ -374,7 +380,7 @@ scriptencoding utf-8
     " Ale {{{
       let g:ale_echo_msg_format = '%severity%: %s - [%linter%%: code%]'
       let g:ale_linters = { 'python': ['pylint', 'mypy', 'pycodestyle'] }
-      let g:ale_fixers = { 'python': ['black'] }
+      let g:ale_fixers = { 'python': ['black'], 'go': ['gofmt'] }
       let g:ale_fix_on_save = 1
       nnoremap <Leader>ln :ALENextWrap<CR>
       nnoremap <Leader>lp :ALEPreviousWrap<CR>
